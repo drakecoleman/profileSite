@@ -18,8 +18,9 @@ function RegisterForm(props) {
         body: JSON.stringify(fullname),
       }).then((data) => {
         if (data.status === 200) {
-          props.auth();
-          history.push("/user");
+          // props.auth();
+          // history.push("/user");
+          console.log(data.status);
         } else {
           console.log(data.status);
         }

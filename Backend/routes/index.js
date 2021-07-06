@@ -16,31 +16,30 @@ router.use(cors());
  * -------------- POST ROUTES ----------------
  */
 
-// router.post(
-//   "/login",
-//   passport.authenticate("local", {
-//     failureRedirect: "/login-failure",
-//     successRedirect: "login-success",
-//   })
-// );
+router.post(
+  "/login",
+
+  passport.authenticate("local", {
+    failureRedirect: "/login-failure",
+    successRedirect: "login-success",
+  })
+);
 router.post("/register", (req, res, next) => {
-  console.log(req.body);
-  //   const saltHash = genPassword(req.body);
+  const saltHash = genPassword(req.body.pass2);
 
-  //   const salt = saltHash.salt;
-  //   const hash = saltHash.hash;
+  const salt = saltHash.salt;
+  const hash = saltHash.hash;
 
-  //   const newUser = new User({
-  //     username: req.body.email,
-  //     hash: hash,
-  //     salt: salt,
-  //     admin: true,
-  //   });
+  const newUser = new User({
+    username: req.body.email,
+    firstName: req.body.first,
+    lastName: req.body.last,
+    hash: hash,
+    salt: salt,
+    admin: true,
+  });
 
-  //   newUser.save().then((user) => {
-  //     console.log(req.body);
-  //     console.log(user);
-  //   });
+  newUser.save();
 });
 
 // /**

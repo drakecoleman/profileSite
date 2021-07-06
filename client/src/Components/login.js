@@ -11,14 +11,12 @@ function Login() {
   }
   function submission(e) {
     e.preventDefault();
-    fetch("http://localhost:8000/login", {
+    fetch("http://localhost:3000/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        user: login,
-      }),
+      body: JSON.stringify(login),
     }).then((data) => console.log(data));
     changeLogin({ email: "", password: "" });
   }

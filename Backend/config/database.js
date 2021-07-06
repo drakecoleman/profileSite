@@ -19,7 +19,7 @@ const conn = process.env.DB_STRING;
 //   useNewUrlParser: true,
 //   useUnifiedTopology: true,
 // });
-const connection = mongoose.connect("mongodb://127.0.0.1:27017/collabUserDB", {
+const connection = mongoose.connect(conn, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
@@ -28,6 +28,8 @@ const connection = mongoose.connect("mongodb://127.0.0.1:27017/collabUserDB", {
 // Creates simple schema for a User.  The hash and salt are derived from the user's given password when they register
 const UserSchema = new mongoose.Schema({
   username: String,
+  firstName: String,
+  lastName: String,
   hash: String,
   salt: String,
   admin: Boolean,

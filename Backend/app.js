@@ -57,14 +57,8 @@ app.use(
 // Need to require the entire Passport config module so app.js knows about it
 require("./config/passport");
 
-// app.use(passport.initialize());
-// app.use(passport.session());
-
-// app.use((req, res, next) => {
-//   console.log(req.session);
-//   console.log(req.body);
-//   next();
-// });
+app.use(passport.initialize());
+app.use(passport.session());
 
 /**
  * -------------- ROUTES ----------------
