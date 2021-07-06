@@ -8,15 +8,14 @@ function RegisterForm(props) {
       e.preventDefault();
       alert("Passwords do not match");
     } else {
+      console.log(fullname);
       e.preventDefault();
-      fetch("http://localhost:8000/register", {
+      fetch("http://localhost:3000/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          name: fullname,
-        }),
+        body: JSON.stringify(fullname),
       }).then((data) => {
         if (data.status === 200) {
           props.auth();
