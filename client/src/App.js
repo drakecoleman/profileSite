@@ -4,12 +4,7 @@ import Background from "./Components/video";
 import Register from "./Components/register";
 import Login from "./Components/login";
 import Home from "./Components/Home";
-import {
-  BrowserRouter as Router,
-  Route,
-  Redirect,
-  Switch,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import UserProfile from "./Components/user";
 
 function App() {
@@ -17,6 +12,11 @@ function App() {
   function change() {
     return changeLogin(false);
   }
+  // let isAuth = () => {
+  //   fetch("http://localhost:3000/")
+  //     .then((res) => res.json())
+  //     .then((data) => console.log(data));
+  // };
 
   let routes;
 

@@ -1,4 +1,4 @@
-import react from "react";
+// import react from "react";
 import video1 from "../assets/hiphop.mp4";
 
 function Background() {

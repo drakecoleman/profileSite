@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import { Redirect, useHistory } from "react-router-dom";
 
 function RegisterForm(props) {
-  const history = useHistory();
   function submission(e) {
     if (fullname.pass1 !== fullname.pass2) {
       e.preventDefault();
@@ -16,17 +14,11 @@ function RegisterForm(props) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(fullname),
-      }).then((data) => {
-        if (data.status === 200) {
-          // props.auth();
-          // history.push("/user");
-          console.log(data.status);
-        } else {
-          console.log(data.status);
-        }
-      });
-      changeName({ first: "", last: "", email: "", pass1: "", pass2: "" });
+      })
+        .then((res) => res.json())
+        .then((data) => console.log(data));
     }
+    changeName({ first: "", last: "", email: "", pass1: "", pass2: "" });
   }
 
   function fChange(e) {
