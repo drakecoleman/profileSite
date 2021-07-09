@@ -10,13 +10,15 @@ function RegisterForm(props) {
       e.preventDefault();
       fetch("http://localhost:3000/register", {
         method: "POST",
+
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(fullname),
       })
         .then((res) => res.json())
-        .then((data) => console.log(data));
+        .then((data) => console.log(data))
+        .catch((err) => console.log(err));
     }
     changeName({ first: "", last: "", email: "", pass1: "", pass2: "" });
   }

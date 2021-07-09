@@ -5,7 +5,7 @@ const connection = require("../config/database");
 const mongoose = require("mongoose");
 const User = mongoose.models.User;
 const cors = require("cors");
-router.use(cors());
+router.use(cors({ origin: "localhost:3001" }));
 
 const isAuth = require("./authMiddleware").isAuth;
 // const isAdmin = require("./authMiddleware").isAdmin;
@@ -15,9 +15,8 @@ const isAuth = require("./authMiddleware").isAuth;
  * -------------- GET ROUTES ----------------
  *
  */
-router.get("/user", isAuth, (req, res) => {
-  console.log(req);
-});
+
+router.get("/user", isAuth);
 /**
  * -------------- POST ROUTES ----------------
  */
@@ -26,12 +25,10 @@ router.post(
   "/login",
 
   passport.authenticate("local"),
-  (req, res) => {
-    console.log(req.user);
-  }
+  (req, res) => {}
 );
 
-router.post("/register", (req, res, next) => {
+router.post("/register", (req, res) => {
   const saltHash = genPassword(req.body.pass2);
 
   const salt = saltHash.salt;

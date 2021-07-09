@@ -3,8 +3,6 @@ module.exports.isAuth = (req, res, next) => {
     res.json({ msg: "You are authorized to view this resource" });
     next();
   } else {
-    console.log(req.session);
-    console.log(req.user);
     console.log("checked out");
     res
       .status(401)
