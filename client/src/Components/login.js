@@ -1,5 +1,13 @@
 import { useState } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  useHistory,
+} from "react-router-dom";
+
 function Login() {
+  const history = useHistory();
   function loginChange(e) {
     const { name, value } = e.target;
     changeLogin((prev) => {
@@ -13,14 +21,22 @@ function Login() {
     e.preventDefault();
     fetch("http://localhost:3000/login", {
       method: "POST",
+      credentials: "include",
+      withCredentials: true,
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "same-origin",
+
       body: JSON.stringify(login),
     })
-      .then((res) => res.json())
-      .then((data) => console.log(data))
+      .then(function (response) {
+        console.log(response.status); // Will show you the status
+        if (!response.ok) {
+          throw new Error("HTTP status " + response.status);
+        }
+
+        return history.push("/user");
+      })
       .catch((err) => console.log(err));
     changeLogin({ email: "", password: "" });
   }

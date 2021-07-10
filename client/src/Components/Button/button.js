@@ -3,7 +3,7 @@ function Button(props) {
     <a
       name={props.name}
       href={props.link}
-      class="btn-mix"
+      className="btn-mix"
       data-text={props.text}
     >
       {props.text}

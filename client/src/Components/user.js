@@ -9,6 +9,8 @@ function UserProfile() {
   // }
   fetch("http://localhost:3000/user", {
     method: "GET",
+    credentials: "include",
+    withCredentials: true,
     headers: {
       "Content-Type": "application/json",
     },

@@ -1,21 +1,36 @@
 import React, { useState } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  useHistory,
+} from "react-router-dom";
 
 function RegisterForm(props) {
+  const history = useHistory();
   function submission(e) {
     if (fullname.pass1 !== fullname.pass2) {
       e.preventDefault();
       alert("Passwords do not match");
     } else {
-      console.log(fullname);
       e.preventDefault();
       fetch("http://localhost:3000/register", {
         method: "POST",
-
+        credentials: "include",
+        withCredentials: true,
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(fullname),
       })
+        .then(function (response) {
+          console.log(response.status); // Will show you the status
+          if (!response.ok) {
+            throw new Error("HTTP status " + response.status);
+          }
+
+          return history.push("/login");
+        })
         .then((res) => res.json())
         .then((data) => console.log(data))
         .catch((err) => console.log(err));
