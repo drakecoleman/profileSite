@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const User = mongoose.models.User;
 const validPassword = require("../lib/passwordUtils").validPassword;
 const cors = require("cors");
-passport.use(cors());
+passport.use(cors({ origin: "http://localhost:3001" }));
 
 const customFields = {
   usernameField: "email",
@@ -23,7 +23,6 @@ const verifyCallback = (username, password, done) => {
       const isValid = validPassword(password, user.hash, user.salt);
 
       if (isValid) {
-        console.log("Logged in");
         return done(null, user);
       } else {
         console.log("Wrong password");
@@ -40,12 +39,13 @@ const strategy = new LocalStrategy(customFields, verifyCallback);
 passport.use(strategy);
 
 passport.serializeUser((user, done) => {
-  console.log("Check");
   done(null, user.id);
 });
 
-passport.deserializeUser((userId, done) => {
-  User.findById(userId)
+passport.deserializeUser((id, done) => {
+  User.findById(id, (err, user) => {
+    done(err, JSON.stringify(user));
+  })
     .then((user) => {
       done(null, user);
     })

@@ -1,31 +1,31 @@
 const router = require("express").Router();
 const passport = require("passport");
+const bodyParser = require("body-parser");
 const genPassword = require("../lib/passwordUtils").genPassword;
 const connection = require("../config/database");
 const mongoose = require("mongoose");
 const User = mongoose.models.User;
-const cors = require("cors");
-router.use(cors({ origin: "localhost:3001" }));
 
 const isAuth = require("./authMiddleware").isAuth;
 // const isAdmin = require("./authMiddleware").isAdmin;
 
-// router.use(bodyParser.urlencoded({ extended: false }));
+router.use(bodyParser.urlencoded({ extended: false }));
 /**
  * -------------- GET ROUTES ----------------
  *
  */
-
 router.get("/user", isAuth);
+
 /**
  * -------------- POST ROUTES ----------------
  */
-
 router.post(
   "/login",
 
   passport.authenticate("local"),
-  (req, res) => {}
+  (req, res) => {
+    res.sendStatus(200);
+  }
 );
 
 router.post("/register", (req, res) => {
@@ -43,6 +43,7 @@ router.post("/register", (req, res) => {
     admin: true,
   });
 
-  newUser.save();
+  newUser.save().then((user) => {});
+  res.sendStatus(200);
 });
 module.exports = router;
