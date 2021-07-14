@@ -1,24 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
+import DivforButton from "./Button/DivforButton";
+import Button from "./Button/button";
 // import { Redirect } from "react-router-dom";
 
 function UserProfile() {
-  // if (props.auth === true) {
-  //   return <Redirect to="/login" />;
-  // } else {
-  //   return <h1 className="red">Logged in </h1>;
-  // }
+  const [name, changeName] = useState();
+
   fetch("http://localhost:3000/user", {
     method: "GET",
     credentials: "include",
     withCredentials: true,
+
     headers: {
       "Content-Type": "application/json",
     },
   })
     .then((res) => res.json())
-    .then((data) => console.log(data))
+
+    .then((data) => changeName(data.firstName))
     .catch((err) => console.log(err));
-  return <h1>Hello</h1>;
+  return (
+    <h1>
+      Hello {name}
+      <DivforButton
+        button={
+          <React.Fragment>
+            <Button text="Home" link="/" />
+            <Button text="Logout" link="/logout" />
+          </React.Fragment>
+        }
+      />
+    </h1>
+  );
 }
 
 export default UserProfile;

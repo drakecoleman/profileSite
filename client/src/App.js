@@ -1,23 +1,13 @@
-import React, { useState } from "react";
-import Background from "./Components/video";
+import React from "react";
 
 import Register from "./Components/register";
 import Login from "./Components/login";
 import Home from "./Components/Home";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import UserProfile from "./Components/user";
+import Logout from "./Components/logout";
 
 function App() {
-  const [loggedOut, changeLogin] = useState(true);
-  function change() {
-    return changeLogin(false);
-  }
-  // let isAuth = () => {
-  //   fetch("http://localhost:3000/")
-  //     .then((res) => res.json())
-  //     .then((data) => console.log(data));
-  // };
-
   let routes;
 
   routes = (
@@ -27,20 +17,16 @@ function App() {
         <Route
           exact
           path="/register"
-          render={(props) => <Register {...props} auth={change} />}
+          render={(props) => <Register {...props} />}
         ></Route>
         <Route exact path="/login" component={Login}></Route>
         <Route exact path="/user" component={UserProfile}></Route>
+        <Route exact path="/logout" component={Logout}></Route>
       </Switch>
     </React.Fragment>
   );
 
-  return (
-    <Router>
-      {loggedOut ? <Background /> : null}
-      {routes}
-    </Router>
-  );
+  return <Router>{routes}</Router>;
 }
 
 export default App;

@@ -1,10 +1,7 @@
 import React, { useState } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  useHistory,
-} from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import DivforButton from "./Button/DivforButton";
+import Button from "./Button/button";
 
 function RegisterForm(props) {
   const history = useHistory();
@@ -24,7 +21,7 @@ function RegisterForm(props) {
         body: JSON.stringify(fullname),
       })
         .then(function (response) {
-          console.log(response.status); // Will show you the status
+          console.log(response.status);
           if (!response.ok) {
             throw new Error("HTTP status " + response.status);
           }
@@ -35,7 +32,14 @@ function RegisterForm(props) {
         .then((data) => console.log(data))
         .catch((err) => console.log(err));
     }
-    changeName({ first: "", last: "", email: "", pass1: "", pass2: "" });
+    changeName({
+      first: "",
+      last: "",
+      email: "",
+      url: "",
+      pass1: "",
+      pass2: "",
+    });
   }
 
   function fChange(e) {
@@ -51,51 +55,71 @@ function RegisterForm(props) {
     first: "",
     last: "",
     email: "",
+    url: "",
     pass1: "",
     pass2: "",
   });
   return (
-    <form>
-      <input
-        placeholder="First Name"
-        name="first"
-        type="text"
-        value={fullname.first}
-        onChange={fChange}
-      />
-      <input
-        onChange={fChange}
-        placeholder="Last Name"
-        name="last"
-        type="text"
-        value={fullname.last}
-      />
-      <input
-        onChange={fChange}
-        value={fullname.email}
-        type="email"
-        placeholder="Email"
-        name="email"
-      />
-      <input
-        onChange={fChange}
-        value={fullname.pass1}
-        type="password"
-        placeholder="Password"
-        name="pass1"
-      />
-      <input
-        onChange={fChange}
-        value={fullname.pass2}
-        type="password"
-        placeholder="Reenter Password"
-        name="pass2"
-      />
+    <div>
+      <form>
+        <input
+          placeholder="First Name"
+          name="first"
+          type="text"
+          value={fullname.first}
+          onChange={fChange}
+        />
+        <input
+          onChange={fChange}
+          placeholder="Last Name"
+          name="last"
+          type="text"
+          value={fullname.last}
+        />
+        <input
+          onChange={fChange}
+          value={fullname.email}
+          type="email"
+          placeholder="Email"
+          name="email"
+        />
+        <input
+          onChange={fChange}
+          value={fullname.url}
+          type="email"
+          placeholder="URL"
+          name="url"
+        />
+        <input
+          onChange={fChange}
+          value={fullname.pass1}
+          type="password"
+          placeholder="Password"
+          name="pass1"
+        />
+        <input
+          onChange={fChange}
+          value={fullname.pass2}
+          type="password"
+          placeholder="Reenter Password"
+          name="pass2"
+        />
 
-      <button onClick={submission} type="submit">
-        Submit
-      </button>
-    </form>
+        <button onClick={submission} type="submit">
+          Submit
+        </button>
+      </form>
+      <DivforButton
+        button={
+          <React.Fragment>
+            <Button text="Login" link="/login" />
+            <Button text="Home" link="/" />
+            <Button text="Profile" link="/user" />
+            <Button text="Logout" link="/logout" />
+          </React.Fragment>
+        }
+      />
+    </div>
   );
 }
 export default RegisterForm;

@@ -12,31 +12,27 @@ const customFields = {
   passwordField: "password",
 };
 
-const verifyCallback = (username, password, done) => {
-  User.findOne({ username: username })
-    .then((user) => {
-      if (!user) {
-        console.log("No User");
-        return done(null, false);
-      }
-
-      const isValid = validPassword(password, user.hash, user.salt);
-
-      if (isValid) {
-        return done(null, user);
-      } else {
-        console.log("Wrong password");
-        return done(null, false);
-      }
-    })
-    .catch((err) => {
-      done(err);
-    });
-};
-
-const strategy = new LocalStrategy(customFields, verifyCallback);
-
-passport.use(strategy);
+passport.use(
+  new LocalStrategy(customFields, (username, password, done) => {
+    User.findOne({ username: username })
+      .then((user) => {
+        if (!user) {
+          return done(null, false);
+        } else {
+          const isValid = validPassword(password, user.hash, user.salt);
+          if (isValid) {
+            console.log("Logged in");
+            done(null, user);
+          } else {
+            return done(null, true);
+          }
+        }
+      })
+      .catch((err) => {
+        done(err);
+      });
+  })
+);
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
@@ -44,7 +40,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser((id, done) => {
   User.findById(id, (err, user) => {
-    done(err, JSON.stringify(user));
+    done(err, user);
   })
     .then((user) => {
       done(null, user);

@@ -5,8 +5,8 @@ const genPassword = require("../lib/passwordUtils").genPassword;
 const connection = require("../config/database");
 const mongoose = require("mongoose");
 const User = mongoose.models.User;
-
 const isAuth = require("./authMiddleware").isAuth;
+
 // const isAdmin = require("./authMiddleware").isAdmin;
 
 router.use(bodyParser.urlencoded({ extended: false }));
@@ -19,6 +19,11 @@ router.get("/user", isAuth);
 /**
  * -------------- POST ROUTES ----------------
  */
+router.get("/logout", (req, res) => {
+  req.logout();
+
+  res.sendStatus(200);
+});
 router.post(
   "/login",
 
@@ -38,6 +43,7 @@ router.post("/register", (req, res) => {
     username: req.body.email,
     firstName: req.body.first,
     lastName: req.body.last,
+    url: req.body.url,
     hash: hash,
     salt: salt,
     admin: true,

@@ -8,6 +8,8 @@ function Home() {
         <React.Fragment>
           <Button text="Login" link="/login" />
           <Button text="Register" link="/register" />
+          <Button text="Profile" link="/user" />
+          <Button text="Logout" link="/logout" />
         </React.Fragment>
       }
     />

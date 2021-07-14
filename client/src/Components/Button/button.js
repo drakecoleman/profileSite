@@ -5,6 +5,8 @@ function Button(props) {
       href={props.link}
       className="btn-mix"
       data-text={props.text}
+      type={props.type}
+      onClick={props.onClick}
     >
       {props.text}
     </a>
