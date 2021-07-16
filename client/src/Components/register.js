@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import DivforButton from "./Button/DivforButton";
 import Button from "./Button/button";
 
-function RegisterForm(props) {
+function RegisterForm() {
   const history = useHistory();
   function submission(e) {
     if (fullname.pass1 !== fullname.pass2) {

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import DivforButton from "./Button/DivforButton";
 import Button from "./Button/button";
-// import { Redirect } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 function UserProfile() {
-  const [name, changeName] = useState();
+  let [logged, changeLogged] = useState(false);
+  // const [name, changeName] = useState();
+  const params = useParams();
 
   fetch("http://localhost:3000/user", {
     method: "GET",
@@ -15,18 +17,29 @@ function UserProfile() {
       "Content-Type": "application/json",
     },
   })
-    .then((res) => res.json())
+    .then(function (response) {
+      if (!response.ok) {
+        return changeLogged(false);
+      } else {
+        return changeLogged(true);
+      }
+    })
 
-    .then((data) => changeName(data.firstName))
     .catch((err) => console.log(err));
+
   return (
     <h1>
-      Hello {name}
       <DivforButton
         button={
           <React.Fragment>
             <Button text="Home" link="/" />
-            <Button text="Logout" link="/logout" />
+            {logged ? (
+              <Button text="Logout" link="/logout" />
+            ) : (
+              <Button text="Login" link="/login" />
+            )}
+
+            <Button text="Edit" />
           </React.Fragment>
         }
       />

@@ -14,13 +14,22 @@ router.use(bodyParser.urlencoded({ extended: false }));
  * -------------- GET ROUTES ----------------
  *
  */
+router.get("/", isAuth);
 router.get("/user", isAuth);
 
 /**
- * -------------- POST ROUTES ----------------
+ * -------------- GET ROUTES ----------------
+ *
  */
+
 router.get("/logout", (req, res) => {
   req.logout();
+
+  res.sendStatus(200);
+});
+
+router.get("/visitor", (req, res) => {
+  console.log(req.body);
 
   res.sendStatus(200);
 });
