@@ -28,25 +28,24 @@ router.get("/logout", (req, res) => {
   res.sendStatus(200);
 });
 function getUser(req, res, next) {
-  console.log(req.body.url);
   User.findOne({ url: req.body.url })
     .then((user) => {
       if (!user) {
         console.log("No user Found");
         res.sendStaus(401);
+        next();
       } else {
-        return user;
+        res.send({ user: user }).status(200);
       }
     })
-    .then((user) => next(user))
+    .then((response) => console.log(response))
+
     .catch((err) => {
       console.log(err);
     });
 }
 
-router.post("/visitor", getUser, (req, res, user) => {
-  res.sendStatus(200);
-});
+router.post("/visitor", getUser);
 router.post(
   "/login",
 

@@ -25,11 +25,11 @@ function Visitor() {
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
-      // changeUser({
-      //   firstName: data.firstName,
-      //   lastName: data.lastName,
-      //   email: data.username,
-      // });
+      changeUser({
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.username,
+      });
     })
     .catch((err) => console.log(err));
 
