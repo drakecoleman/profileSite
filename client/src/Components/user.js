@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import DivforButton from "./Button/DivforButton";
 import Button from "./Button/button";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 
 function UserProfile() {
-  let [logged, changeLogged] = useState(false);
+  const history = useHistory();
+
   // const [name, changeName] = useState();
   const params = useParams();
 
@@ -19,9 +20,9 @@ function UserProfile() {
   })
     .then(function (response) {
       if (!response.ok) {
-        return changeLogged(false);
+        return history.push("/login");
       } else {
-        return changeLogged(true);
+        return;
       }
     })
 
@@ -33,12 +34,7 @@ function UserProfile() {
         button={
           <React.Fragment>
             <Button text="Home" link="/" />
-            {logged ? (
-              <Button text="Logout" link="/logout" />
-            ) : (
-              <Button text="Login" link="/login" />
-            )}
-
+            <Button text="Logout" link="/logout" />
             <Button text="Edit" />
           </React.Fragment>
         }

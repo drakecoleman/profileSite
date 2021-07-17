@@ -21,7 +21,6 @@ function RegisterForm() {
         body: JSON.stringify(fullname),
       })
         .then(function (response) {
-          console.log(response.status);
           if (!response.ok) {
             throw new Error("HTTP status " + response.status);
           }

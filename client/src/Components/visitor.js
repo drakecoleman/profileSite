@@ -1,28 +1,54 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DivforButton from "./Button/DivforButton";
 import Button from "./Button/button";
+
 import { useParams } from "react-router-dom";
 
 function Visitor() {
-  // const [name, changeName] = useState();
-  //   const params = useParams();
+  const params = useParams();
+  const [user, changeUser] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+  });
 
-  //   fetch("http://localhost:3000/visitor", {
-  //     method: "GET",
-  //     credentials: "include",
-  //     withCredentials: true,
+  fetch("http://localhost:3000/visitor", {
+    method: "Post",
+    credentials: "include",
+    withCredentials: true,
 
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(params.url),
-  //   })
-  //     .then( (response) =>{
-  // console.log(response))
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ url: params.url }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      // changeUser({
+      //   firstName: data.firstName,
+      //   lastName: data.lastName,
+      //   email: data.username,
+      // });
+    })
+    .catch((err) => console.log(err));
 
-  //     .catch((err) => console.log(err));
+  return (
+    <div>
+      <h1>
+        First Name:{user.firstName} {user.lastName}
+      </h1>
+      <DivforButton
+        button={
+          <React.Fragment>
+            <Button text="Home" link="/" />
 
-  return <h1>Hello</h1>;
+            <Button text="Profile" link="/user" />
+          </React.Fragment>
+        }
+      />
+    </div>
+  );
 }
 
 export default Visitor;

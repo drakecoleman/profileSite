@@ -8,6 +8,7 @@ const routes = require("./routes");
 const connection = require("./config/database");
 const cors = require("cors");
 app.use(cors({ origin: "http://localhost:3001", credentials: true }));
+const User = mongoose.models.User;
 
 const bodyParser = require("body-parser");
 
@@ -36,6 +37,21 @@ app.use(
     },
   })
 );
+// app.use((req, res) => {
+//   User.findOne({ url: req.body.url })
+//     .then((user) => {
+//       if (!user) {
+//         console.log("No user Found");
+//         res.send("No user found");
+//       } else {
+//         console.log("user Found");
+//         res.send(user).res.sendStaus(200);
+//       }
+//     })
+//     .catch((err) => {
+//       done(err);
+//     });
+// });
 
 require("./config/passport");
 

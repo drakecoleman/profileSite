@@ -27,7 +27,6 @@ function Login() {
       body: JSON.stringify(login),
     })
       .then(function (response) {
-        console.log(response); // Will show you the status
         if (!response.ok) {
           changeLogin({ email: "", password: "" });
           throw new Error("HTTP status " + response.status);
@@ -62,10 +61,8 @@ function Login() {
       <DivforButton
         button={
           <React.Fragment>
-            <Button text="Logout" link="/logout" />
             <Button text="Home" link="/" />
             <Button text="Register" link="/register" />
-            <Button text="Profile" link="/user" />
           </React.Fragment>
         }
       />
