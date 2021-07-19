@@ -11,27 +11,28 @@ function Visitor() {
     lastName: "",
     email: "",
   });
+  useEffect(() => {
+    fetch("http://localhost:3000/visitor", {
+      method: "Post",
+      credentials: "include",
+      withCredentials: true,
 
-  fetch("http://localhost:3000/visitor", {
-    method: "Post",
-    credentials: "include",
-    withCredentials: true,
-
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ url: params.url }),
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data);
-      changeUser({
-        firstName: data.firstName,
-        lastName: data.lastName,
-        email: data.username,
-      });
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ url: params.url }),
     })
-    .catch((err) => console.log(err));
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        changeUser({
+          firstName: data.user.firstName,
+          lastName: data.user.lastName,
+          email: data.user.username,
+        });
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <div>

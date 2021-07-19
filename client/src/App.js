@@ -3,7 +3,7 @@ import Register from "./Components/register";
 import Login from "./Components/login";
 import Home from "./Components/Home";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import UserProfile from "./Components/user";
+import UserProfile from "./Components/User/user.js";
 import Logout from "./Components/logout";
 import Visitor from "./Components/visitor";
 

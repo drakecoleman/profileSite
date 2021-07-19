@@ -35,7 +35,7 @@ function getUser(req, res, next) {
         res.sendStaus(401);
         next();
       } else {
-        res.send({ user: user }).status(200);
+        res.send({ user }).status(200);
       }
     })
     .then((response) => console.log(response))
