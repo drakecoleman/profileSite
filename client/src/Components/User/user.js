@@ -7,6 +7,7 @@ import "./user.css";
 
 function UserProfile() {
   const history = useHistory();
+  const [edit, changeEdit] = useState(false);
 
   // const [name, changeName] = useState();
   // const params = useParams();
@@ -32,34 +33,46 @@ function UserProfile() {
   const [file, setFile] = useState(
     "https://static.files-simplefileupload.com/atsdvx264ufd6mn1dj6x0avb9l35/yourimage.jpeg"
   );
-  let clicker = (e) => {
-    e.preventDefault();
-    console.log(file);
+  let editProfilePicture = (e) => {
+    changeEdit(true);
+  };
+  let doneProfilePicture = () => {
+    changeEdit(false);
   };
 
   return (
-    <h1>
-      <DivforButton
-        className="buttonDiv"
-        button={
-          <React.Fragment>
-            <Button text="Home" link="/" />
-            <Button text="Logout" link="/logout" />
-            <Button text="Edit" />
-          </React.Fragment>
-        }
-      />
-      <form>
-        <button onClick={clicker}>Submit</button>
-
-        <SimpleFileUpload
-          apiKey={process.env.REACT_APP_API_KEY}
-          preview="false"
-          onSuccess={setFile}
+    <section>
+      <div className="buttonDiv">
+        <DivforButton
+          id="butt"
+          button={
+            <React.Fragment>
+              <Button id="but" text="Home" link="/" />
+              <Button text="Logout" link="/logout" />
+            </React.Fragment>
+          }
         />
-        <img src={file} height="400" width="400" />
-      </form>
-    </h1>
+      </div>
+
+      <img src={file} className="profilePicture" />
+      {edit ? (
+        [
+          <SimpleFileUpload
+            apiKey={process.env.REACT_APP_API_KEY}
+            preview="false"
+            onSuccess={setFile}
+            className="uploader"
+          />,
+          <DivforButton
+            button={<Button onClick={doneProfilePicture} text="done" />}
+          />,
+        ]
+      ) : (
+        <DivforButton
+          button={<Button onClick={editProfilePicture} text="Edit" />}
+        />
+      )}
+    </section>
   );
 }
 
