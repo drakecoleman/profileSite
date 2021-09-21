@@ -23,18 +23,33 @@ router.get("/user", isAuth);
  */
 
 router.get("/logout", (req, res) => {
-  req.logout();
-
-  res.sendStatus(200);
+  res.status(200);
+  req.logOut();
 });
+// app.use((req, res) => {
+//   User.findOne({ url: req.body.url })
+//     .then((user) => {
+//       if (!user) {
+//         console.log("No user Found");
+//         res.send("No user found");
+//       } else {
+//         console.log("user Found");
+//         res.send(user).status(200);
+//       }
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// });
 function getUser(req, res, next) {
   User.findOne({ url: req.body.url })
     .then((user) => {
       if (!user) {
         console.log("No user Found");
-        res.sendStaus(401);
+        res.status(401);
         next();
       } else {
+        console.log("success");
         res.send({ user }).status(200);
       }
     })

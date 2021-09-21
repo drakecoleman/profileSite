@@ -45,11 +45,11 @@ app.use(
 //         res.send("No user found");
 //       } else {
 //         console.log("user Found");
-//         res.send(user).res.sendStaus(200);
+//         res.send(user).status(200);
 //       }
 //     })
 //     .catch((err) => {
-//       done(err);
+//       console.log(err);
 //     });
 // });
 
