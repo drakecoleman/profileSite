@@ -1,6 +1,5 @@
 import React from "react";
 
-// import HipHop from "./../../assets/hiphop.mp4";
 import "./headStyles.css";
 
 function ButtonDiv(props) {

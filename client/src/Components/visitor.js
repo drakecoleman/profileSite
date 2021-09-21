@@ -24,7 +24,7 @@ function Visitor() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        console.log(data.user);
         changeUser({
           firstName: data.user.firstName,
           lastName: data.user.lastName,
@@ -37,7 +37,7 @@ function Visitor() {
   return (
     <div>
       <h1>
-        First Name:{user.firstName} {user.lastName}
+        First Name: {user.firstName} {user.lastName}
       </h1>
       <DivforButton
         button={

@@ -1,0 +1,68 @@
+body {
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  background-color: black;
+}
+.videoDiv {
+  text-align: center;
+}
+.buttDiv {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  top: 10vw;
+  text-align: center;
+}
+.buttonDiv {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.felix {
+  font-size: 10vw;
+  color: red;
+  margin-top: 2vw;
+  margin-bottom: 1rem;
+}
+.felixSubText {
+  margin: 1rem;
+  color: red;
+}
+#myVideo {
+  width: 100%;
+  height: auto;
+  filter: brightness(10%);
+}
+.Sec {
+  color: red;
+  position: relative;
+  font-size: 1vw;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  border: solid blaCK;
+}
+.Dwight {
+  width: 10%;
+}
+.fa-id-card,
+.fa-id-badge,
+.fa-users {
+  margin: 3vw 1vw;
+  font-size: 3vw;
+}
+.questions {
+  margin: 2vw auto;
+  width: 50%;
+  text-align: center;
+}
+.backGround {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  filter: brightness(20%);
+}
+.third {
+  position: relative;
+}

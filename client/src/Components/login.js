@@ -14,6 +14,27 @@ function Login() {
       };
     });
   }
+  let CheckifLoggedIn = () => {
+    fetch("http://localhost:3000/user", {
+      method: "GET",
+      credentials: "include",
+      withCredentials: true,
+
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then(function (response) {
+        if (!response.ok) {
+          return;
+        } else {
+          return history.push("/user");
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+  CheckifLoggedIn();
+
   function submission(e) {
     e.preventDefault();
     fetch("http://localhost:3000/login", {

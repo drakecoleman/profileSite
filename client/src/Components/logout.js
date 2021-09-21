@@ -18,12 +18,6 @@ function LogOut() {
       },
     })
       .then(function (response) {
-        console.log(response); // Will show you the status
-        if (!response.ok) {
-          throw new Error("HTTP status " + response.status);
-        }
-        console.log("hmm");
-
         return history.push("/");
       })
       .catch((err) => console.log(err));
@@ -35,12 +29,7 @@ function LogOut() {
       <DivforButton
         button={
           <React.Fragment>
-            <Button
-              text="TESTLogout"
-              link="/"
-              type="Submit"
-              onClick={loggingout}
-            />
+            <Button text="Logout" link="/" type="Submit" onClick={loggingout} />
             <Button text="Register" link="/register" />
             <Button text="Home" link="/" />
             <Button text="Login" link="/login" />
