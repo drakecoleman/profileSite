@@ -5,49 +5,45 @@ import Video from "../../../assets/homeVideo.mp4";
 import Dwight from "../../../assets/Question.jpeg";
 import SecondBG from "../../../assets/secondBG.jpg";
 import ThirdBG from "../../../assets/thirdBG.jpg";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
 import RegisterBoard from "../../Register/registerBoard";
 import "./greetingStyles.css";
-const registerBox = document.getElementById("login-box");
 
-function notLogged() {
-  let Butt = document.querySelectorAll(".btn-mix");
-  let register = (e) => {
-    e.preventDefault();
-    // document.querySelector(".invis").classList.add("display");
+function NotLogged() {
+  const [open, setOpen] = useState(false);
 
-    // Butt.forEach((item) => {
-    //   console.log(item);
-    //   item.style.display = "none";
-    //   item.style.visibility = "none";
-    // });
-    document.querySelector(".login-box").classList.add("display");
+  const handleClickOpen = () => {
+    setOpen(true);
   };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return [
     <div className="videoDiv">
       <div className="buttDiv">
+        <Dialog open={open} onClose={handleClose}>
+          <DialogContent>
+            <RegisterBoard />
+          </DialogContent>
+        </Dialog>
+
         <h1 className="felix">fELIX</h1>
         <h4 className="felixSubText">A Social Platform</h4>
         <h4 className="felixSubText">Designed by YOU</h4>
-        <RegisterBoard className="board" />
-        <div className="invis">
-          {" "}
-          <DivforButton
-            className="dis"
-            button={
-              <React.Fragment>
-                <Button key="3" text="Login" link="/login" />,
-                {/* <Button key="4" text="Register" link="/register" />, */}
-                <Button
-                  key="4"
-                  // type="button"
-                  text="Register"
-                  onClick={register}
-                />
-                ,
-              </React.Fragment>
-            }
-          />
-        </div>
+
+        <DivforButton
+          className="dis"
+          button={
+            <React.Fragment>
+              <Button key="3" text="Login" link="/login" />,
+              <Button key="4" text="Register" onClick={handleClickOpen} />,
+            </React.Fragment>
+          }
+        />
       </div>
       <video muted autoPlay loop id="myVideo">
         <source src={Video} type="video/mp4" />
@@ -60,19 +56,19 @@ function notLogged() {
         <h1 className="questions">
           Why does your Facebook Profile look the exact same as everyone else's?
         </h1>
-        <i class="fas fa-id-card"></i>
-        <i class="fas fa-id-card"></i>
-        <i class="fas fa-id-card"></i>
+        <i className="fas fa-id-card"></i>
+        <i className="fas fa-id-card"></i>
+        <i className="fas fa-id-card"></i>
         <h1 className="questions">And your twitter Profile?</h1>
-        <i class="fas fa-id-badge"></i>
-        <i class="fas fa-id-badge"></i>
-        <i class="fas fa-id-badge"></i>
+        <i className="fas fa-id-badge"></i>
+        <i className="fas fa-id-badge"></i>
+        <i className="fas fa-id-badge"></i>
         <h1 className="questions">
           ........and literally every other social media profile?
         </h1>
-        <i class="fas fa-users"></i>
-        <i class="fas fa-users"></i>
-        <i class="fas fa-users"></i>
+        <i className="fas fa-users"></i>
+        <i className="fas fa-users"></i>
+        <i className="fas fa-users"></i>
       </div>
       <div className="third">
         <h1 className="felix">Introducing fELIX</h1>
@@ -89,4 +85,4 @@ function notLogged() {
     </div>,
   ];
 }
-export default notLogged;
+export default NotLogged;

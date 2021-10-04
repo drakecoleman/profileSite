@@ -1,44 +1,82 @@
-import React from "react";
+import React, { useState } from "react";
+
 import "./register.css";
-function registerBoard() {
-  const Click = () => {
-    document.getElementById("login-box").classList.add("display");
-    document.querySelector(".invis").classList.remove("display");
+function RegisterBoard() {
+  const emailPointer = document.querySelector("emailPointer");
+  const [email, changeEmail] = useState(false);
+  const [email2, changeEmailPointer] = useState(false);
+  const foldingEmail = () => {};
+  const emailInput = () => {
+    changeEmail(true);
   };
-
   return (
-    <section className="section">
-      <div className="login-box">
-        <div class="left">
-          <h1>Sign up</h1>
-
-          <input type="text" name="username" placeholder="Username" />
-          <input type="text" name="email" placeholder="E-mail" />
-          <input type="password" name="password" placeholder="Password" />
-          <input
-            type="password"
-            name="password2"
-            placeholder="Retype password"
-          />
-
-          <input type="submit" name="signup_submit" value="Sign me up" />
+    <section className="popUp">
+      <div className="back">
+        <div className="registration-form">
+          <header className="unique">
+            <h1>Sign Up</h1>
+            <p>Fill in all informations</p>
+          </header>
+          <form>
+            <div className="input-section email-section">
+              <input
+                className="email"
+                onChange={emailInput}
+                placeholder="ENTER YOUR E-MAIL HERE"
+              />
+              <div className="animated-button">
+                <span
+                  className={
+                    email ? "icon-paper-plane next" : "icon-paper-plane"
+                  }
+                >
+                  <i className="fa fa-envelope-o"></i>
+                </span>
+                <span
+                  className={email ? "next-button pointer" : "next-button"}
+                  onClick={foldingEmail}
+                >
+                  <i className="fa fa-arrow-up"></i>
+                </span>
+              </div>
+            </div>
+            <div className="input-section password-section folded">
+              <input
+                className="password"
+                type="password"
+                placeholder="ENTER YOUR PASSWORD HERE"
+              />
+              <div className="animated-button">
+                <span className="icon-lock">
+                  <i className="fa fa-lock"></i>
+                </span>
+                <span className="next-button password">
+                  <i className="fa fa-arrow-up"></i>
+                </span>
+              </div>
+            </div>
+            <div className="input-section repeat-password-section folded">
+              <input
+                className="repeat-password"
+                type="password"
+                placeholder="REPEAT YOUR PASSWORD HERE"
+              />
+              <div className="animated-button">
+                <span className="icon-repeat-lock">
+                  <i className="fa fa-lock"></i>
+                </span>
+                <span className="next-button repeat-password">
+                  <i className="fa fa-paper-plane"></i>
+                </span>
+              </div>
+            </div>
+            <div className="success">
+              <p>ACCOUNT CREATED</p>
+            </div>
+          </form>
         </div>
-
-        <div class="right">
-          <i class="fas fa-times" onClick={Click}></i>
-          <span class="loginwith">
-            Sign in with
-            <br />
-            social network
-          </span>
-
-          <button class="social-signin facebook">Log in with facebook</button>
-          <button class="social-signin twitter">Log in with Twitter</button>
-          <button class="social-signin google">Log in with Google+</button>
-        </div>
-        <div class="or">OR</div>
       </div>
     </section>
   );
 }
-export default registerBoard;
+export default RegisterBoard;
