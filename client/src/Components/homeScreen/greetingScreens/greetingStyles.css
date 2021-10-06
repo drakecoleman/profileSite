@@ -31,7 +31,7 @@ body {
 #myVideo {
   width: 100%;
   height: auto;
-  filter: brightness(10%);
+  filter: brightness(30%);
 }
 .Sec {
   color: red;
@@ -62,7 +62,6 @@ body {
   left: 0;
   z-index: -1;
   width: 100%;
-  filter: brightness(20%);
 }
 .third {
   position: relative;

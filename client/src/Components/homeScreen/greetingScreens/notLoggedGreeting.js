@@ -9,25 +9,60 @@ import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import RegisterBoard from "../../Register/registerBoard";
+import LoginBoard from "../../Login/loginBoard";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@material-ui/core/styles";
 import "./greetingStyles.css";
 
 function NotLogged() {
-  const [open, setOpen] = useState(false);
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down("xs"));
+  const [fullWidth, setFullWidth] = React.useState(true);
+  const [maxWidth, setMaxWidth] = React.useState("sm");
+  const [maxWidthLogin, setMaxWidthLogin] = React.useState("md");
+  const [openRegister, setOpenRegister] = useState(false);
+  const [openLogin, setOpenLogin] = useState(false);
 
   const handleClickOpen = () => {
-    setOpen(true);
+    setOpenRegister(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleCloseRegister = () => {
+    setOpenRegister(false);
+  };
+  const handleLoginOpen = () => {
+    setOpenLogin(true);
+  };
+
+  const handleCloseLogin = () => {
+    setOpenLogin(false);
   };
 
   return [
     <div className="videoDiv">
       <div className="buttDiv">
-        <Dialog open={open} onClose={handleClose}>
-          <DialogContent>
+        <Dialog
+          id="imp"
+          fullWidth={fullWidth}
+          maxWidth={maxWidth}
+          open={openRegister}
+          onClose={handleCloseRegister}
+          sx={{ border: "solid black" }}
+        >
+          <DialogContent sx={{ p: 0, borderRadius: "2vw" }}>
             <RegisterBoard />
+          </DialogContent>
+        </Dialog>
+        <Dialog
+          id="imp"
+          fullWidth={fullWidth}
+          maxWidth={maxWidthLogin}
+          open={openLogin}
+          onClose={handleCloseLogin}
+          sx={{ border: "solid black" }}
+        >
+          <DialogContent sx={{ p: 0, borderRadius: "2vw" }}>
+            <LoginBoard />
           </DialogContent>
         </Dialog>
 
@@ -39,7 +74,7 @@ function NotLogged() {
           className="dis"
           button={
             <React.Fragment>
-              <Button key="3" text="Login" link="/login" />,
+              <Button key="3" text="Login" onClick={handleLoginOpen} />,
               <Button key="4" text="Register" onClick={handleClickOpen} />,
             </React.Fragment>
           }
