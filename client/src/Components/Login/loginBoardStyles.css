@@ -1,0 +1,10 @@
+.registration-form .passwordLogin.folded {
+  margin-top: 75px;
+}
+.registration-form .input-section.loggingIn {
+  width: 100%;
+}
+.registration-form .input-section.loggingIn input {
+  margin: 0 auto;
+  border-radius: 15px 15px 15px 15px;
+}
