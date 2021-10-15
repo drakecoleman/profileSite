@@ -1,28 +1,33 @@
 .css-ypiqx9-MuiDialogContent-root {
   padding: 0;
+  overflow: visible;
 }
 .MuiDialog-container .MuiPaper-root {
   visibility: hidden;
   height: 400px;
+  overflow: visible;
 }
 
 .registration-form {
   visibility: visible;
-  width: 100%;
-
+  width: 95%;
+  margin: auto;
+  overflow: visible;
   background: transparent;
 }
 .registration-form header {
   position: relative;
   z-index: 4;
-  background: white;
+  border-width: 10vw;
+  border: double crimson;
+  background-color: black;
   padding: 20px 40px;
   border-radius: 15px 15px 15px 15px;
 }
 .registration-form header h1 {
   font-weight: 900;
   letter-spacing: 1.5px;
-  color: #333;
+  color: crimson;
   font-size: 23px;
   text-transform: uppercase;
   margin: 0;
@@ -36,7 +41,7 @@
 }
 
 .registration-form .input-section {
-  width: 100%;
+  width: 95%;
   position: absolute;
   display: flex;
   left: 50%;
@@ -49,17 +54,17 @@
   transition: all 0.2s ease-in;
 }
 .registration-form .input-section.folded {
-  width: 95%;
+  width: 92%;
   margin-top: 10px;
   left: 50%;
   transform: translate(-50%, -22%);
   z-index: 1;
 }
 .registration-form .input-section.folded input {
-  background-color: #e9e2c0;
+  background-color: rgb(201, 201, 201);
 }
 .registration-form .input-section.folded span {
-  background-color: #e9e2c0;
+  background-color: rgb(201, 201, 201);
 }
 .registration-form .input-section.folded + .folded {
   width: 90%;
@@ -69,17 +74,17 @@
   z-index: 0;
 }
 .registration-form .input-section.folded + .folded input {
-  background-color: #e1bcef;
+  background-color: crimson;
 }
 .registration-form .input-section.folded + .folded span {
-  background-color: #e1bcef;
+  background-color: crimson;
 }
 .registration-form .input-section.fold-up {
   margin-top: -75px;
 }
 .registration-form form input {
   background: #fff;
-  color: #8f8fd6;
+  color: crimson;
   width: 80%;
   border: 0;
   padding: 20px 40px;
@@ -89,12 +94,12 @@
   outline: none;
 }
 .registration-form form input::placeholder {
-  color: #8f8fd6;
+  color: black;
   font-weight: 100;
 }
 .animated-button {
   width: 20%;
-  background-color: #d4d4ff;
+  background-color: rgb(53, 49, 49);
 }
 .animated-button span {
   display: flex;
@@ -108,20 +113,16 @@
 }
 .animated-button span i {
   font-size: 25px;
-  color: #9999f8;
+  color: crimson;
 }
 .animated-button .next-button {
-  background: transparent;
-  color: #9999f8;
-  font-weight: 100;
-  width: 100%;
-  border: 0;
+  width: 95%;
 }
 .next {
   margin-top: -75px;
 }
 .success {
-  width: 100%;
+  width: 95%;
   position: absolute;
   display: flex;
   align-items: center;
@@ -151,4 +152,19 @@
   .registration-form {
     width: 100%;
   }
+  .registration-form input {
+    font-size: 10px;
+  }
+  .registration-form .label {
+    padding: 10px;
+    font-size: 12px;
+  }
+}
+
+.label {
+  width: 40%;
+  padding: 12px 30px 0;
+  color: black;
+  background-color: crimson;
+  transition: 1s;
 }

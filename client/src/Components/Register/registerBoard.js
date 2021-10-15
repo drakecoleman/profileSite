@@ -1,102 +1,175 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import "./register.css";
+
 function RegisterBoard() {
-  const [email, changeEmail] = useState(false);
-  const [email2, changeEmailPointer] = useState(false);
-  const [emailSection, changeEmailSection] = useState(false);
-  const foldingEmail = () => {
-    changeEmailSection(true);
+  const Match = document.querySelector("label");
+  const history = useHistory();
+  const [register, changeRegister] = useState({
+    email: false,
+    eSection: false,
+    password: false,
+    pSection: false,
+    repeatPassword: false,
+    p2Section: false,
+  });
+  const [info, changeInfo] = useState({
+    email: "",
+    password: "",
+    repeatPassword: "",
+  });
+  const changeValue = (e) => {
+    const { name, value } = e.target;
+
+    changeInfo((prev) => {
+      return {
+        ...prev,
+        [name]: value,
+      };
+    });
   };
-  const emailInput = () => {
-    changeEmail(true);
+  useEffect(() => {
+    if (info.password !== "") {
+      register.password = true;
+    }
+    if (info.password !== "" && info.password === info.repeatPassword) {
+      changeRegister({
+        ...register,
+        repeatPassword: true,
+      });
+
+      Match.style.display = "none";
+    }
+    if (info.password !== info.repeatPassword) {
+      changeRegister({
+        ...register,
+        repeatPassword: false,
+      });
+
+      Match.style.display = "block";
+    }
+  }, [info]);
+
+  const input = (e) => {
+    const target = e.target.dataset.name;
+    if (target !== "repeatPassword") {
+      changeRegister({
+        ...register,
+        [target]: true,
+      });
+    }
   };
-  const [password, changePassword] = useState(false);
-  const [password2, changePasswordPointer] = useState(false);
-  const [passwordSection, changePasswordSection] = useState(false);
-  const foldingPassword = () => {
-    changePasswordSection(true);
-  };
-  const passwordInput = () => {
-    changePassword(true);
-  };
-  const [passwordCheck, changePasswordCheck] = useState(false);
-  const [passwordPointer, changeCheckPointer] = useState(false);
-  const [passwordCheckSection, changePasswordCheckSection] = useState(false);
-  const foldingPasswordCheck = () => {
-    changePasswordCheckSection(true);
-    document.querySelector(".success").style.marginTop = "0";
-  };
-  const passwordCheckInput = () => {
-    changePasswordCheck(true);
-  };
+  function submission(e) {
+    fetch("http://localhost:3000/register", {
+      method: "POST",
+      credentials: "include",
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(info),
+    })
+      .then(function (response) {
+        if (!response.ok) {
+          throw new Error("HTTP status " + response.status);
+        }
+
+        return history.push("/login");
+      })
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
+  }
+
   return (
     <div className="registration-form">
-      <header>
+      <header className="header">
         <h1>Sign Up</h1>
         <p>Fill in all information</p>
       </header>
       <form>
         <div
           className={
-            emailSection
+            register.eSection
               ? "input-section email-section fold-up"
               : "input-section email-section"
           }
         >
           <input
+            value={info.email}
+            name="email"
+            data-name="email"
             className="email"
-            onChange={emailInput}
+            onChange={(e) => {
+              changeValue(e);
+              input(e);
+            }}
             placeholder="ENTER YOUR E-MAIL HERE"
           />
           <div className="animated-button">
             <span
-              className={email ? "icon-paper-plane next" : "icon-paper-plane"}
+              className={
+                register.email ? "icon-paper-plane next" : "icon-paper-plane"
+              }
             >
               <i className="fa fa-envelope-o"></i>
             </span>
             <span
-              className={email ? "next-button pointer" : "next-button"}
-              onClick={foldingEmail}
+              className={register.email ? "next-button pointer" : "next-button"}
+              onClick={input}
             >
-              <i className="fa fa-arrow-up"></i>
+              <i data-name="eSection" className="fa fa-arrow-up"></i>
             </span>
           </div>
         </div>
         <div
           className={`input-section password-section ${
-            passwordSection ? "fold-up" : emailSection ? "" : "folded"
+            register.pSection ? "fold-up" : register.eSection ? "" : "folded"
           }`}
         >
           <input
-            onChange={passwordInput}
+            name="password"
+            data-name="password"
+            onChange={(e) => {
+              changeValue(e);
+              input(e);
+            }}
             className="password"
             type="password"
             placeholder="ENTER YOUR PASSWORD HERE"
           />
           <div className="animated-button">
-            <span className={password ? "icon-lock next" : "icon-lock"}>
+            <span
+              className={register.password ? "icon-lock next" : "icon-lock"}
+            >
               <i className="fa fa-lock"></i>
             </span>
             <span
               className={
-                password
+                register.password
                   ? "next-button password pointer"
                   : "next-button password"
               }
-              onClick={foldingPassword}
+              onClick={input}
             >
-              <i className="fa fa-arrow-up"></i>
+              <i data-name="pSection" className="fa fa-arrow-up"></i>
             </span>
           </div>
         </div>
         <div
           className={`input-section repeat-password-section ${
-            passwordCheckSection ? "fold-up" : passwordSection ? "" : "folded"
+            register.p2Section ? "fold-up" : register.pSection ? "" : "folded"
           }`}
         >
+          <label className="label"> Passwords Must Match</label>
+
           <input
-            onChange={passwordCheckInput}
+            id="pwd"
+            name="repeatPassword"
+            data-name="repeatPassword"
+            onChange={(e) => {
+              changeValue(e);
+            }}
             className="repeat-password"
             type="password"
             placeholder="REPEAT YOUR PASSWORD HERE"
@@ -105,20 +178,25 @@ function RegisterBoard() {
             <span
               className="icon-repeat-lock"
               className={
-                passwordCheck ? "icon-repeat-lock next" : "icon-repeat-lock"
+                register.repeatPassword
+                  ? "icon-repeat-lock next"
+                  : "icon-repeat-lock"
               }
             >
               <i className="fa fa-lock"></i>
             </span>
             <span
-              onClick={foldingPasswordCheck}
               className={
-                passwordCheck
+                register.repeatPassword
                   ? "next-button pointer repeat-password"
                   : "next-button repeat-password"
               }
             >
-              <i className="fa fa-paper-plane"></i>
+              <i
+                onClick={submission}
+                data-name="p2Section"
+                className="fa fa-paper-plane"
+              ></i>
             </span>
           </div>
         </div>

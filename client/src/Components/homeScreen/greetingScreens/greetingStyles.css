@@ -33,36 +33,3 @@ body {
   height: auto;
   filter: brightness(30%);
 }
-.Sec {
-  color: red;
-  position: relative;
-  font-size: 1vw;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-  border: solid blaCK;
-}
-.Dwight {
-  width: 10%;
-}
-.fa-id-card,
-.fa-id-badge,
-.fa-users {
-  margin: 3vw 1vw;
-  font-size: 3vw;
-}
-.questions {
-  margin: 2vw auto;
-  width: 50%;
-  text-align: center;
-}
-.backGround {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  width: 100%;
-}
-.third {
-  position: relative;
-}
