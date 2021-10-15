@@ -71,19 +71,15 @@ router.post(
 );
 
 router.post("/register", (req, res) => {
-  const saltHash = genPassword(req.body.pass2);
+  const saltHash = genPassword(req.body.repeatPassword);
 
   const salt = saltHash.salt;
   const hash = saltHash.hash;
 
   const newUser = new User({
-    username: req.body.email,
-    firstName: req.body.first,
-    lastName: req.body.last,
-    url: req.body.url,
+    email: req.body.email,
     hash: hash,
     salt: salt,
-    admin: true,
   });
 
   newUser.save().then((user) => {});

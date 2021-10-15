@@ -24,3 +24,9 @@ const nodemailer = require("nodemailer");
 // }
 
 // main().catch(console.error);
+
+
+
+
+
+Your main line is Alpha and Zeta, use Alpha tributing Zeta to add Benten, then use Zeta tributing Benten and add Meteonis, use Benten to add Diviner and Normal Summon her sending Arc Light to add Idaten, then go into Fafnir sending Gamma. Next use Meteonis to Ritual the Benten back, then use Gamma tributing the Benten to Summon back the monster you used for Meteonis, use Benten to add Orange Light or Lancea if you have that in main/side (is a preference option). Now with this field, use Meteonistargeting Fafnir to add it back to hand, then Ritual Summon Idaten using the Meteonis you added back, then use Idaten to add back said Meteonis you just use, now you have 2 level 6s because Diviner modulates herself to go into Beatrice, use Beatrice to send Ultimateness and use your last Ritual Summon to get it on your field, use the remaining Fafnir and either Gamma or the monster you Summoned back off said Gamma to go into I:P. On your opponents turn, use Beatrice in DP or SP sending Eva to add more Herald fodder. (edited)
