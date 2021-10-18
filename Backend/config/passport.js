@@ -8,7 +8,7 @@ const cors = require("cors");
 passport.use(cors({ origin: "http://localhost:3001" }));
 
 const customFields = {
-  usernameField: "email",
+  usernameField: "username",
   passwordField: "password",
 };
 
@@ -22,8 +22,10 @@ passport.use(
           const isValid = validPassword(password, user.hash, user.salt);
           if (isValid) {
             console.log("Logged in");
-            done(null, user);
+
+            return done(null, user);
           } else {
+            console.log("Wrong Password");
             return done(null, true);
           }
         }

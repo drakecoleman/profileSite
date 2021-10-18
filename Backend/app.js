@@ -57,6 +57,15 @@ require("./config/passport");
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.post(
+  "/login",
+
+  passport.authenticate("local"),
+  (req, res) => {
+    console.log("working");
+    res.sendStatus(200);
+  }
+);
 
 app.use(routes);
 

@@ -11,7 +11,7 @@ const connection = mongoose.connect(conn, {
 });
 
 const UserSchema = new mongoose.Schema({
-  email: String,
+  username: String,
   hash: String,
   salt: String,
   admin: Boolean,

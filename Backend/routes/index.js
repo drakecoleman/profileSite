@@ -14,8 +14,8 @@ router.use(bodyParser.urlencoded({ extended: false }));
  * -------------- GET ROUTES ----------------
  *
  */
-router.get("/", isAuth);
-router.get("/user", isAuth);
+// router.get("/", isAuth);
+// router.get("/user", isAuth);
 
 /**
  * -------------- GET ROUTES ----------------
@@ -41,32 +41,33 @@ router.get("/logout", (req, res) => {
 //       console.log(err);
 //     });
 // });
-function getUser(req, res, next) {
-  User.findOne({ url: req.body.url })
-    .then((user) => {
-      if (!user) {
-        console.log("No user Found");
-        res.status(401);
-        next();
-      } else {
-        console.log("success");
-        res.send({ user }).status(200);
-      }
-    })
-    .then((response) => console.log(response))
+// function getUser(req, res, next) {
+//   User.findOne({ url: req.body.url })
+//     .then((user) => {
+//       if (!user) {
+//         console.log("No user Found");
+//         res.status(401);
+//         next();
+//       } else {
+//         console.log("success");
+//         res.send({ user }).status(200);
+//       }
+//     })
+//     .then((response) => console.log(response))
 
-    .catch((err) => {
-      console.log(err);
-    });
-}
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// }
 
-router.post("/visitor", getUser);
+// router.post("/visitor", getUser);
 router.post(
   "/login",
 
   passport.authenticate("local"),
   (req, res) => {
-    res.sendStatus(200);
+    console.log("working");
+    res.status(200);
   }
 );
 
@@ -77,7 +78,7 @@ router.post("/register", (req, res) => {
   const hash = saltHash.hash;
 
   const newUser = new User({
-    email: req.body.email,
+    username: req.body.email,
     hash: hash,
     salt: salt,
   });

@@ -2,6 +2,38 @@ import React, { useState } from "react";
 
 import "./loginBoardStyles.css";
 function RegisterBoard() {
+  const [login, changeLogin] = useState({ username: "", password: "" });
+  function loginChange(e) {
+    const { name, value } = e.target;
+    changeLogin((prev) => {
+      return {
+        ...prev,
+        [name]: value,
+      };
+    });
+  }
+  function submission(e) {
+    e.preventDefault();
+    fetch("http://localhost:3000/login", {
+      method: "POST",
+      credentials: "include",
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(login),
+    })
+      .then(function (response) {
+        if (!response.ok) {
+          console.log(response.status);
+          // throw new Error("HTTP status " + response.status);
+        } else {
+          console.log("It worked");
+        }
+      })
+      .catch((err) => console.log(err));
+  }
+
   return (
     <div className="logPopUp">
       <form>
@@ -9,6 +41,10 @@ function RegisterBoard() {
           <input
             className="loggingInput"
             placeholder="ENTER YOUR E-MAIL HERE"
+            type="email"
+            name="username"
+            onChange={loginChange}
+            value={login.username}
           />
         </div>
         <div>
@@ -16,10 +52,13 @@ function RegisterBoard() {
             className="loggingInput"
             type="password"
             placeholder="ENTER YOUR PASSWORD HERE"
+            name="password"
+            onChange={loginChange}
+            value={login.password}
           />
         </div>
 
-        <button className="submitButton" type="submit">
+        <button className="submitButton" type="submit" onClick={submission}>
           Login
         </button>
       </form>

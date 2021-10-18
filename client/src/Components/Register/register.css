@@ -121,6 +121,7 @@
 .next {
   margin-top: -75px;
 }
+
 .success {
   width: 95%;
   position: absolute;
@@ -136,6 +137,9 @@
   transition: all 0.2s ease-in;
   background: limegreen;
   margin-top: -75px;
+}
+.show {
+  margin-top: 0px;
 }
 .success p {
   color: white;

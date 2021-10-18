@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import "./register.css";
 
 function RegisterBoard() {
   const Match = document.querySelector("label");
-  const history = useHistory();
+
   const [register, changeRegister] = useState({
     email: false,
     eSection: false,
@@ -72,12 +72,13 @@ function RegisterBoard() {
       .then(function (response) {
         if (!response.ok) {
           throw new Error("HTTP status " + response.status);
+        } else {
+          changeRegister({
+            ...register,
+            p2Section: true,
+          });
         }
-
-        return history.push("/login");
       })
-      .then((res) => res.json())
-      .then((data) => console.log(data))
       .catch((err) => console.log(err));
   }
 
@@ -200,8 +201,10 @@ function RegisterBoard() {
             </span>
           </div>
         </div>
-        <div className="success">
+
+        <div className={`success ${register.p2Section ? "show" : ""}`}>
           <p>ACCOUNT CREATED</p>
+          <p>Now try Logging In!</p>
         </div>
       </form>
     </div>
