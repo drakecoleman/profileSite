@@ -17,6 +17,7 @@ passport.use(
     User.findOne({ username: username })
       .then((user) => {
         if (!user) {
+          console.log("No user");
           return done(null, false);
         } else {
           const isValid = validPassword(password, user.hash, user.salt);

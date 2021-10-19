@@ -25,12 +25,15 @@ function RegisterBoard() {
     })
       .then(function (response) {
         if (!response.ok) {
+          console.log("Hello");
           console.log(response.status);
-          // throw new Error("HTTP status " + response.status);
+          throw new Error("HTTP status " + response.status);
         } else {
-          console.log("It worked");
+          return response.json();
         }
       })
+      .then((data) => console.log(data))
+
       .catch((err) => console.log(err));
   }
 

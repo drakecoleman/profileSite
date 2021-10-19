@@ -17,6 +17,7 @@ const MongoStore = require("connect-mongo")(session);
 require("dotenv").config();
 
 app.use(express.json());
+// app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -37,36 +38,51 @@ app.use(
     },
   })
 );
-// app.use((req, res) => {
-//   User.findOne({ url: req.body.url })
-//     .then((user) => {
-//       if (!user) {
-//         console.log("No user Found");
-//         res.send("No user found");
-//       } else {
-//         console.log("user Found");
-//         res.send(user).status(200);
-//       }
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
+
+// app.use((req, res, next) => {
+//   console.log("talking");
+//   next();
+//   // User.findOne({ url: req.body.url })
+//   //   .then((user) => {
+//   //     if (!user) {
+//   //       console.log("No user Found");
+//   //       res.send("No user found");
+//   //     } else {
+//   //       console.log("user Found");
+//   //       res.send(user).status(200);
+//   //     }
+//   //   })
+//   //   .catch((err) => {
+//   //     console.log(err);
+//   //   });
 // });
 
 require("./config/passport");
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.post(
-  "/login",
 
-  passport.authenticate("local"),
-  (req, res) => {
-    console.log("working");
-    res.sendStatus(200);
-  }
-);
-
-app.use(routes);
+app.use("/", routes);
+// app.post("/login", (req, res) => {
+//   passport.authenticate("local", (err, user, info) => {
+//     console.log("here");
+//     console.log(user);
+//     return user;
+//   });
+// });
+// app.post("/login", (req, res, next) => {
+//   passport.authenticate("local", (err, user, info) => {
+//     if (err) throw err;
+//     if (!user) res.send("No User Exists");
+//     else {
+//       req.logIn(user, (err) => {
+//         if (err) throw err;
+//         res.send(user);
+//         return;
+//         console.log(req.user);
+//       });
+//     }
+//   })(req, res, next);
+// });
 
 app.listen(3000);
