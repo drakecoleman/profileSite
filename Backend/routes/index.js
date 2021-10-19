@@ -5,7 +5,7 @@ const genPassword = require("../lib/passwordUtils").genPassword;
 const connection = require("../config/database");
 const mongoose = require("mongoose");
 const User = mongoose.models.User;
-// const isAuth = require("./authMiddleware").isAuth;
+const isAuth = require("./authMiddleware").isAuth;
 // cors is needed with router.use else you have to put routes on the app.js
 // const cors = require("cors");
 // router.use(cors({ origin: "http://localhost:3001", credentials: true }));
@@ -66,8 +66,11 @@ router.post("/register", (req, res) => {
  * -------------- GET ROUTES ----------------
  *
  */
-// router.get("/", isAuth);
-// router.get("/user", isAuth);
+// router.get("/user", (req, res) => {
+//   console.log(req.user);
+//   res.send(req.user);
+// });
+router.get("/", isAuth);
 
 // router.get("/logout", (req, res) => {
 //   res.status(200);

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import DivforButton from "../../Button/DivforButton";
 import Button from "../../Button/button";
 import Video from "../../../assets/homeVideo.mp4";
-
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";

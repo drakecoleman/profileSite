@@ -12,6 +12,9 @@ const connection = mongoose.connect(conn, {
 
 const UserSchema = new mongoose.Schema({
   username: String,
+  fName: String,
+  lName: String,
+  title: String,
   hash: String,
   salt: String,
   admin: Boolean,
