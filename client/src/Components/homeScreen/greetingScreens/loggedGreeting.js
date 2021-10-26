@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import DivforButton from "../../Button/DivforButton";
 import Button from "../../Button/button";
 import "./loggedStyles.css";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import SecondBoard from "../../QuestionBoard/secondBoard";
 
-function Logged() {
-  const [user, changeUserInfo] = useState({
+function Logged(props) {
+  const [userInfo, changeUserInfo] = useState({
     fName: "",
     lName: "",
     title: "",
@@ -24,19 +27,92 @@ function Logged() {
         throw new Error("HTTP status " + response.status);
       } else {
         console.log(response);
-        // changeUserInfo({
-        //   ...user,
-        //   fName: "",
-        //   lName: "",
-        //   title: "",
-        // });
+        changeUserInfo({
+          ...userInfo,
+          fName: "",
+          lName: "",
+          title: "",
+        });
         return;
       }
     })
     .catch((err) => console.log(err));
+  // const firstUpdateToUserInfo = (){
+  //       fetch("http://localhost:3000/user", {
+  //     method: "PUT",
+  //     credentials: "include",
+  //     withCredentials: true,
+
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //      body: JSON.stringify(userInfo),
+  //   });
+  // }
+
+  const [fullWidth, setFullWidth] = React.useState(true);
+  const [maxWidth, setMaxWidth] = React.useState("sm");
+
+  const [openRegister, setOpenRegister] = useState(false);
+  const openQuestions = () => {
+    if (props.fName === "") {
+      setOpenRegister(true);
+      return;
+    } else {
+      setOpenRegister(false);
+      return;
+    }
+  };
+
+  const handleClickOpen = () => {
+    setOpenRegister(true);
+  };
+
+  const handleCloseRegister = () => {
+    setOpenRegister(false);
+  };
+  const Submit = () => {
+    fetch(`http://localhost:3000/user`, {
+      method: "POST",
+      credentials: "include",
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(info),
+    })
+      .then(function (response) {
+        if (!response.ok) {
+          throw new Error("HTTP status " + response.status);
+        } else {
+          console.log(response);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
 
   return [
     <div class="wrapper">
+      <Dialog
+        fullWidth={fullWidth}
+        maxWidth={maxWidth}
+        open={openQuestions}
+        onClose={handleCloseRegister}
+        sx={{ border: "solid black" }}
+      >
+        <DialogContent sx={{ p: 0, borderRadius: "2vw" }}>
+          <SecondBoard
+            header="Basic Information"
+            headerText="Fill in all Information"
+            firstPlaceHolder="Enter your first name here"
+            secondPlaceholder="Enter your last name here"
+            thirdPlaceholder="Your Title (Job/Career)"
+            passwordMatchClass="noDisplay"
+            submit={Submit}
+          />
+        </DialogContent>
+      </Dialog>
+
       <div class="section">
         <div class="top_navbar">
           <h4>DashBoard</h4>
@@ -78,9 +154,9 @@ function Logged() {
             alt="profile_picture"
           />
           <h3>
-            {user.fName} {user.lName}
+            {props.fName} {props.lName}
           </h3>
-          <p>{user.title}</p>
+          <p>{props.title}</p>
         </div>
         <ul>
           <li>

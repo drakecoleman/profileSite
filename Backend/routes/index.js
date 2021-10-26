@@ -7,8 +7,8 @@ const mongoose = require("mongoose");
 const User = mongoose.models.User;
 const isAuth = require("./authMiddleware").isAuth;
 // cors is needed with router.use else you have to put routes on the app.js
-// const cors = require("cors");
-// router.use(cors({ origin: "http://localhost:3001", credentials: true }));
+const cors = require("cors");
+router.use(cors({ origin: "http://localhost:3001", credentials: true }));
 // const isAdmin = require("./authMiddleware").isAdmin;
 router.use(bodyParser.urlencoded({ extended: false }));
 
@@ -53,7 +53,10 @@ router.post("/register", (req, res) => {
   const hash = saltHash.hash;
 
   const newUser = new User({
-    username: req.body.email,
+    username: req.body.firstInput,
+    fName: "",
+    lName: "",
+    title: "",
     hash: hash,
     salt: salt,
   });
@@ -66,10 +69,26 @@ router.post("/register", (req, res) => {
  * -------------- GET ROUTES ----------------
  *
  */
-// router.get("/user", (req, res) => {
-//   console.log(req.user);
-//   res.send(req.user);
-// });
+router.get("/user", (req, res) => {
+  // console.log(req.user);
+  // res.send(req.user);
+});
+router.post("/user", (req, res) => {
+  console.log(req.body.firstInput);
+  User.findOne({ username: req.body.firstInput })
+    .then((user) => {
+      if (!user) {
+        console.log("Hello");
+        return console.log("No user");
+      } else {
+        return console.log("User found!");
+      }
+    })
+    .catch((err) => {
+      done(err);
+    });
+  res.sendStatus(200);
+});
 router.get("/", isAuth);
 
 // router.get("/logout", (req, res) => {

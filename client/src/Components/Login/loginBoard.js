@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 import "./loginBoardStyles.css";
 function RegisterBoard() {
+  const history = useHistory();
   const [login, changeLogin] = useState({ username: "", password: "" });
   function loginChange(e) {
     const { name, value } = e.target;
@@ -28,7 +30,7 @@ function RegisterBoard() {
           console.log(response.status);
           throw new Error("HTTP status " + response.status);
         } else {
-          return;
+          return history.push("/");
         }
       })
       .then((data) => console.log(data))

@@ -172,3 +172,7 @@
   background-color: crimson;
   transition: 1s;
 }
+.noDisplay {
+  width: 0;
+  display: none;
+}

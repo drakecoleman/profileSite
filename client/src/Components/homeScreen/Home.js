@@ -4,6 +4,11 @@ import Button from "../Button/button";
 import Notlogged from "./greetingScreens/notLoggedGreeting";
 import Logged from "./greetingScreens/loggedGreeting";
 function Home() {
+  const [user, changeUserInfo] = useState({
+    fName: "",
+    lName: "",
+    title: "",
+  });
   let [logged, changeLogged] = useState(false);
 
   fetch("http://localhost:3000/", {
@@ -21,18 +26,14 @@ function Home() {
         changeLogged(false);
       } else {
         changeLogged(true);
+        return response.json();
       }
     })
-    .then(() => {
+    .then((data) => {
+      console.log(data.user);
       return;
     })
     .catch((err) => console.log(err));
-  return (
-    <DivforButton
-      button={
-        <React.Fragment>{logged ? <Logged /> : <Notlogged />}</React.Fragment>
-      }
-    />
-  );
+  return logged ? <Logged fName="" lName="" title="" /> : <Notlogged />;
 }
 export default Home;

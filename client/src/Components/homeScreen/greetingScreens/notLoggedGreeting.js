@@ -63,8 +63,8 @@ function NotLogged() {
         </Dialog>
 
         <h1 className="felix">fELIX</h1>
-        <h4 className="felixSubText">A Social Platform</h4>
-        <h4 className="felixSubText">Designed by YOU</h4>
+        <h2 className="felixSubText">A Social Platform</h2>
+        <h3 className="felixSubText">Designed by YOU</h3>
 
         <DivforButton
           className="dis"
