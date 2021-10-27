@@ -28,3 +28,53 @@
       })
       .catch((err) => console.log(err));
   };
+
+
+
+
+This is a new way to do stuff
+
+
+
+
+  you will create a Store wrapper, which will wrap you context in, i will write down something simple.
+export const YourContext = createContext();
+YourContext.displayName = "Your Context";
+
+export const YourStore = ({children}) => {
+  const [state, dispatch] = useReducer(reducer, initialValue);
+
+  const value = useMemo(() => ({state, dispatch}), [state])
+
+  return <YourContext.Provider value={value}>{children}</YourContext.Provider>
+}
+
+export const useYourContext = () => {
+  const context = useContext(YourContext);
+  if (!context) {
+  throw new Error("useYourContext must be used within YourStore");
+}
+return context; // will return the value from the store
+}
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "CREATE":
+      return someCreateFunction(); // handles creation
+    case "UPDATE":
+      return someUpdateFunction(); // handles update
+    case "DELETE":
+      return someDeleteFunction(); // handles delete
+    default:
+      return state;
+  }
+}
+your Store will be a wrappe at the highest component level where it is needed, and then when you need to change the state or get the state, inside that child component, you just do:
+import {useYourContext} from "path/to/YourStore.js";
+
+const Component = () => {
+  const {state, dispatch} = useYourContext(); // i used destructing here
+}
+
+Now you get read it with state and dispatch what you want with dispatch, and the value is the same in every child component of the Store Wrapper.
+This is a basic explanation, I didn't include imports in it.

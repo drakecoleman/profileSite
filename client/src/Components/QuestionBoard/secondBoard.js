@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import Label from "./label";
 import "./../Register/register.css";
 
 function SecondBoard(props) {
+  const history = useHistory();
   const Match = document.querySelector("label");
 
   const [register, changeRegister] = useState({
@@ -186,7 +188,7 @@ function SecondBoard(props) {
               }
             >
               <i
-                onClick={props.submit}
+                onClick={submission}
                 data-name="p2Section"
                 className="fa fa-paper-plane"
               ></i>

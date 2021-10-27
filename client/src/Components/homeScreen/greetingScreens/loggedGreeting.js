@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import DivforButton from "../../Button/DivforButton";
 import Button from "../../Button/button";
 import "./loggedStyles.css";
@@ -7,48 +8,12 @@ import DialogContent from "@mui/material/DialogContent";
 import SecondBoard from "../../QuestionBoard/secondBoard";
 
 function Logged(props) {
+  const history = useHistory();
   const [userInfo, changeUserInfo] = useState({
     fName: "",
     lName: "",
     title: "",
   });
-  fetch("http://localhost:3000/user", {
-    method: "GET",
-    credentials: "include",
-    withCredentials: true,
-
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then(function (response) {
-      if (!response.ok) {
-        console.log(response.status);
-        throw new Error("HTTP status " + response.status);
-      } else {
-        console.log(response);
-        changeUserInfo({
-          ...userInfo,
-          fName: "",
-          lName: "",
-          title: "",
-        });
-        return;
-      }
-    })
-    .catch((err) => console.log(err));
-  // const firstUpdateToUserInfo = (){
-  //       fetch("http://localhost:3000/user", {
-  //     method: "PUT",
-  //     credentials: "include",
-  //     withCredentials: true,
-
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //      body: JSON.stringify(userInfo),
-  //   });
-  // }
 
   const [fullWidth, setFullWidth] = React.useState(true);
   const [maxWidth, setMaxWidth] = React.useState("sm");
@@ -71,25 +36,36 @@ function Logged(props) {
   const handleCloseRegister = () => {
     setOpenRegister(false);
   };
-  const Submit = () => {
-    fetch(`http://localhost:3000/user`, {
-      method: "POST",
+  useEffect(() => {
+    fetch("http://localhost:3000/user", {
+      method: "GET",
       credentials: "include",
       withCredentials: true,
+
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(info),
     })
       .then(function (response) {
         if (!response.ok) {
+          console.log(response.status);
           throw new Error("HTTP status " + response.status);
         } else {
-          console.log(response);
+          return response.json();
         }
       })
+      .then((data) => {
+        console.log(data.fName);
+        changeUserInfo({
+          ...userInfo,
+          fName: data.fName,
+          lName: data.lName,
+          title: data.title,
+        });
+      })
+
       .catch((err) => console.log(err));
-  };
+  }, []);
 
   return [
     <div class="wrapper">
@@ -108,10 +84,13 @@ function Logged(props) {
             secondPlaceholder="Enter your last name here"
             thirdPlaceholder="Your Title (Job/Career)"
             passwordMatchClass="noDisplay"
-            submit={Submit}
+            fetchRoute="user"
           />
         </DialogContent>
       </Dialog>
+      <h3>
+        {userInfo.fName} {userInfo.lName}
+      </h3>
 
       <div class="section">
         <div class="top_navbar">
@@ -154,9 +133,9 @@ function Logged(props) {
             alt="profile_picture"
           />
           <h3>
-            {props.fName} {props.lName}
+            {userInfo.fName} {userInfo.lName}
           </h3>
-          <p>{props.title}</p>
+          <p>{userInfo.title}</p>
         </div>
         <ul>
           <li>

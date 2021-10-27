@@ -70,24 +70,27 @@ router.post("/register", (req, res) => {
  *
  */
 router.get("/user", (req, res) => {
-  // console.log(req.user);
-  // res.send(req.user);
+  res.send(req.user);
 });
 router.post("/user", (req, res) => {
-  console.log(req.body.firstInput);
-  User.findOne({ username: req.body.firstInput })
-    .then((user) => {
-      if (!user) {
-        console.log("Hello");
-        return console.log("No user");
+  const fName = req.body.firstInput;
+  const lName = req.body.secondInput;
+
+  const title = req.body.repeatPassword;
+
+  const user = req.session.passport.user;
+  User.updateOne(
+    { _id: user },
+    { fName: fName, lName: lName, title: title },
+    function (err, result) {
+      if (err) {
+        res.sendStatus(401);
+        console.log(err);
       } else {
-        return console.log("User found!");
+        res.sendStatus(200);
       }
-    })
-    .catch((err) => {
-      done(err);
-    });
-  res.sendStatus(200);
+    }
+  );
 });
 router.get("/", isAuth);
 
