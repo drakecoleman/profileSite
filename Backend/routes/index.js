@@ -87,7 +87,8 @@ router.post("/user", (req, res) => {
         res.sendStatus(401);
         console.log(err);
       } else {
-        res.sendStatus(200);
+        console.log(req.user);
+        res.status(200).send(req.user);
       }
     }
   );
