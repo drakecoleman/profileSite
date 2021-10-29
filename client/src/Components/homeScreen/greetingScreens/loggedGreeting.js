@@ -16,22 +16,17 @@ function Logged(props) {
 
   const [fullWidth, setFullWidth] = React.useState(true);
   const [maxWidth, setMaxWidth] = React.useState("sm");
-  if (userInfo.fName !== "") {
-    setDialogue(false);
-  } else {
-    setDialogue(true);
-  }
+  useEffect(() => {
+    if (userInfo.fName !== "") {
+      setDialogue(false);
+    } else {
+      setDialogue(true);
+    }
+  }, [userInfo]);
 
-  // const openQuestions = () => {
-  //   if (userInfo.fName === "") {
-  //     setOpenRegister(true);
-  //     return;
-  //   } else {
-  //     setOpenRegister(false);
-  //     setClose(true);
-  //     return;
-  //   }
-  // };
+  const closeDialogue = () => {
+    setDialogue(false);
+  };
 
   useEffect(() => {
     fetch("http://localhost:3000/user", {
@@ -64,35 +59,32 @@ function Logged(props) {
   }, []);
 
   return [
-    <div class="wrapper">
-      {openDialogue ? (
-        <Dialog
-          fullWidth={fullWidth}
-          maxWidth={maxWidth}
-          open={openDialogue}
-          sx={{ border: "solid black" }}
-        >
-          <DialogContent sx={{ p: 0, borderRadius: "2vw" }}>
-            <SecondBoard
-              header="Basic Information"
-              headerText="Fill in all Information"
-              firstPlaceHolder="Enter your first name here"
-              secondPlaceholder="Enter your last name here"
-              thirdPlaceholder="Your Title (Job/Career)"
-              passwordMatchClass="noDisplay"
-              fetchRoute="user"
-            />
-          </DialogContent>
-        </Dialog>
-      ) : (
-        ""
-      )}
+    <div className="wrapper">
+      <Dialog
+        fullWidth={fullWidth}
+        maxWidth={maxWidth}
+        open={openDialogue}
+        onClose={closeDialogue}
+        sx={{ border: "solid black" }}
+      >
+        <DialogContent sx={{ p: 0, borderRadius: "2vw" }}>
+          <SecondBoard
+            header="Basic Information"
+            headerText="Fill in all Information"
+            firstPlaceHolder="Enter your first name here"
+            secondPlaceholder="Enter your last name here"
+            thirdPlaceholder="Your Title (Job/Career)"
+            passwordMatchClass="noDisplay"
+            fetchRoute="user"
+          />
+        </DialogContent>
+      </Dialog>
 
-      <div class="section">
-        <div class="top_navbar">
+      <div className="section">
+        <div className="top_navbar">
           <h4>DashBoard</h4>
         </div>
-        <div class="container">
+        <div className="container">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
           minim veniam, quis nostrud exercitation ullamco laboris nisi ut
@@ -122,8 +114,8 @@ function Logged(props) {
           deserunt mollit anim id est laborum.
         </div>
       </div>
-      <div class="sidebar">
-        <div class="profile">
+      <div className="sidebar">
+        <div className="profile">
           <img
             src="https://1.bp.blogspot.com/-vhmWFWO2r8U/YLjr2A57toI/AAAAAAAACO4/0GBonlEZPmAiQW4uvkCTm5LvlJVd_-l_wCNcBGAsYHQ/s16000/team-1-2.jpg"
             alt="profile_picture"
@@ -135,67 +127,67 @@ function Logged(props) {
         </div>
         <ul>
           <li>
-            <a href="#" class="active">
-              <span class="icon">
-                <i class="fas fa-home"></i>
+            <a href="#" className="active">
+              <span className="icon">
+                <i className="fas fa-home"></i>
               </span>
-              <span class="item">Home</span>
+              <span className="item">Home</span>
             </a>
           </li>
           <li>
             <a href="#">
-              <span class="icon">
-                <i class="fas fa-desktop"></i>
+              <span className="icon">
+                <i className="fas fa-desktop"></i>
               </span>
-              <span class="item">My Dashboard</span>
+              <span className="item">My Dashboard</span>
             </a>
           </li>
           <li>
             <a href="#">
-              <span class="icon">
-                <i class="fas fa-user-friends"></i>
+              <span className="icon">
+                <i className="fas fa-user-friends"></i>
               </span>
-              <span class="item">People</span>
+              <span className="item">People</span>
             </a>
           </li>
           <li>
             <a href="#">
-              <span class="icon">
-                <i class="fas fa-tachometer-alt"></i>
+              <span className="icon">
+                <i className="fas fa-tachometer-alt"></i>
               </span>
-              <span class="item">Perfomance</span>
+              <span className="item">Perfomance</span>
             </a>
           </li>
           <li>
             <a href="#">
-              <span class="icon">
-                <i class="fas fa-database"></i>
+              <span className="icon">
+                <i className="fas fa-database"></i>
               </span>
-              <span class="item">Development</span>
+              <span className="item">Development</span>
             </a>
           </li>
           <li>
             <a href="#">
-              <span class="icon">
-                <i class="fas fa-chart-line"></i>
+              <span className="icon">
+                <i className="fas fa-chart-line"></i>
               </span>
-              <span class="item">Reports</span>
+              <span className="item">Reports</span>
             </a>
           </li>
           <li>
             <a href="#">
-              <span class="icon">
-                <i class="fas fa-user-shield"></i>
+              <span className="icon">
+                <i className="fas fa-user-shield"></i>
               </span>
-              <span class="item">Admin</span>
+              <span className="item">Admin</span>
             </a>
           </li>
           <li>
             <a href="#">
-              <span class="icon">
-                <i class="fas fa-cog"></i>
+              <span className="icon">
+                <i className="fas fa-cog"></i>
               </span>
-              <span class="item">Settings</span>
+              <span className="item">Settings</span>
             </a>
           </li>
         </ul>

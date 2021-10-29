@@ -77,8 +77,10 @@ function SecondBoard(props) {
         return response.json();
       })
       .then((data) => {
+        console.log("Hello");
         setDialogue(false);
         setUserInfo({
+          ...userInfo,
           fName: data.fName,
           lName: data.lName,
           title: data.title,
