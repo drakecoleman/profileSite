@@ -4,11 +4,6 @@ import Button from "../Button/button";
 import Notlogged from "./greetingScreens/notLoggedGreeting";
 import Logged from "./greetingScreens/loggedGreeting";
 function Home() {
-  // const [user, changeUserInfo] = useState({
-  //   fName: "",
-  //   lName: "",
-  //   title: "",
-  // });
   let [logged, changeLogged] = useState(false);
 
   fetch("http://localhost:3000/", {
@@ -30,7 +25,7 @@ function Home() {
       }
     })
     .then((data) => {
-      console.log("Check");
+      return console.log("Check");
     })
     .catch((err) => console.log(err));
   return logged ? <Logged /> : <Notlogged />;

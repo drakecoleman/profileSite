@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import DivforButton from "../../Button/DivforButton";
 import Button from "../../Button/button";
@@ -6,36 +6,33 @@ import "./loggedStyles.css";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import SecondBoard from "../../QuestionBoard/secondBoard";
+import { LoginContext, DialogueContext } from "../../../Context/context";
 
 function Logged(props) {
+  const { userInfo, setUserInfo } = useContext(LoginContext);
+  const { openDialogue, setDialogue } = useContext(DialogueContext);
+
   const history = useHistory();
-  const [userInfo, changeUserInfo] = useState({
-    fName: "",
-    lName: "",
-    title: "",
-  });
 
   const [fullWidth, setFullWidth] = React.useState(true);
   const [maxWidth, setMaxWidth] = React.useState("sm");
+  if (userInfo.fName !== "") {
+    setDialogue(false);
+  } else {
+    setDialogue(true);
+  }
 
-  const [openRegister, setOpenRegister] = useState(false);
-  const openQuestions = () => {
-    if (props.fName === "") {
-      setOpenRegister(true);
-      return;
-    } else {
-      setOpenRegister(false);
-      return;
-    }
-  };
+  // const openQuestions = () => {
+  //   if (userInfo.fName === "") {
+  //     setOpenRegister(true);
+  //     return;
+  //   } else {
+  //     setOpenRegister(false);
+  //     setClose(true);
+  //     return;
+  //   }
+  // };
 
-  const handleClickOpen = () => {
-    setOpenRegister(true);
-  };
-
-  const handleCloseRegister = () => {
-    setOpenRegister(false);
-  };
   useEffect(() => {
     fetch("http://localhost:3000/user", {
       method: "GET",
@@ -55,8 +52,7 @@ function Logged(props) {
         }
       })
       .then((data) => {
-        console.log(data.fName);
-        changeUserInfo({
+        setUserInfo({
           ...userInfo,
           fName: data.fName,
           lName: data.lName,
@@ -69,28 +65,28 @@ function Logged(props) {
 
   return [
     <div class="wrapper">
-      <Dialog
-        fullWidth={fullWidth}
-        maxWidth={maxWidth}
-        open={openQuestions}
-        onClose={handleCloseRegister}
-        sx={{ border: "solid black" }}
-      >
-        <DialogContent sx={{ p: 0, borderRadius: "2vw" }}>
-          <SecondBoard
-            header="Basic Information"
-            headerText="Fill in all Information"
-            firstPlaceHolder="Enter your first name here"
-            secondPlaceholder="Enter your last name here"
-            thirdPlaceholder="Your Title (Job/Career)"
-            passwordMatchClass="noDisplay"
-            fetchRoute="user"
-          />
-        </DialogContent>
-      </Dialog>
-      <h3>
-        {userInfo.fName} {userInfo.lName}
-      </h3>
+      {openDialogue ? (
+        <Dialog
+          fullWidth={fullWidth}
+          maxWidth={maxWidth}
+          open={openDialogue}
+          sx={{ border: "solid black" }}
+        >
+          <DialogContent sx={{ p: 0, borderRadius: "2vw" }}>
+            <SecondBoard
+              header="Basic Information"
+              headerText="Fill in all Information"
+              firstPlaceHolder="Enter your first name here"
+              secondPlaceholder="Enter your last name here"
+              thirdPlaceholder="Your Title (Job/Career)"
+              passwordMatchClass="noDisplay"
+              fetchRoute="user"
+            />
+          </DialogContent>
+        </Dialog>
+      ) : (
+        ""
+      )}
 
       <div class="section">
         <div class="top_navbar">

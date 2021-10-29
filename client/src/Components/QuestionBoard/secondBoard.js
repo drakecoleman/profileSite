@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import Label from "./label";
 import "./../Register/register.css";
+import { LoginContext, DialogueContext } from "./../../Context/context";
 
 function SecondBoard(props) {
+  const { userInfo, setUserInfo } = useContext(LoginContext);
+  const { openDialogue, setDialogue } = useContext(DialogueContext);
   const history = useHistory();
   const Match = document.querySelector("label");
 
@@ -69,12 +72,18 @@ function SecondBoard(props) {
       .then(function (response) {
         if (!response.ok) {
           throw new Error("HTTP status " + response.status);
-        } else {
-          changeRegister({
-            ...register,
-            p2Section: true,
-          });
         }
+
+        return response.json();
+      })
+      .then((data) => {
+        setDialogue(false);
+        setUserInfo({
+          fName: data.fName,
+          lName: data.lName,
+          title: data.title,
+        });
+        return history.push("/");
       })
       .catch((err) => console.log(err));
   }
