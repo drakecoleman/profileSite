@@ -74,18 +74,19 @@ function SecondBoard(props) {
           throw new Error("HTTP status " + response.status);
         }
 
-        return response.json();
+        response.json();
       })
       .then((data) => {
-        console.log("Hello");
+        console.log(data);
         setDialogue(false);
         setUserInfo({
           ...userInfo,
+
           fName: data.fName,
           lName: data.lName,
           title: data.title,
         });
-        return history.push("/");
+        return;
       })
       .catch((err) => console.log(err));
   }

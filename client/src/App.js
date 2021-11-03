@@ -10,6 +10,7 @@ import { LoginContext, DialogueContext } from "./Context/context";
 
 function App() {
   const [userInfo, setUserInfo] = useState({
+    id: "",
     fName: "",
     lName: "",
     title: "",

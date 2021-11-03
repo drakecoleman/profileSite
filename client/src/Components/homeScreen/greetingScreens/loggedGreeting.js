@@ -25,7 +25,7 @@ function Logged(props) {
   }, [userInfo]);
 
   const closeDialogue = () => {
-    setDialogue(false);
+    setDialogue(true);
   };
 
   useEffect(() => {
@@ -47,12 +47,38 @@ function Logged(props) {
         }
       })
       .then((data) => {
+        console.log(data._id);
         setUserInfo({
           ...userInfo,
+          id: data._id,
           fName: data.fName,
           lName: data.lName,
           title: data.title,
         });
+      })
+
+      .catch((err) => console.log(err));
+  }, [openDialogue]);
+  useEffect(() => {
+    fetch("http://localhost:3000/users", {
+      method: "GET",
+      credentials: "include",
+      withCredentials: true,
+
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then(function (response) {
+        if (!response.ok) {
+          console.log(response.status);
+          throw new Error("HTTP status " + response.status);
+        } else {
+          return response.json();
+        }
+      })
+      .then((data) => {
+        console.log(data);
       })
 
       .catch((err) => console.log(err));
@@ -64,7 +90,6 @@ function Logged(props) {
         fullWidth={fullWidth}
         maxWidth={maxWidth}
         open={openDialogue}
-        onClose={closeDialogue}
         sx={{ border: "solid black" }}
       >
         <DialogContent sx={{ p: 0, borderRadius: "2vw" }}>

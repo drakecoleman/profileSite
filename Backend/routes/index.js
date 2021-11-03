@@ -72,6 +72,17 @@ router.post("/register", (req, res) => {
 router.get("/user", (req, res) => {
   res.send(req.user);
 });
+router.get("/users", (req, res) => {
+  User.find({}, function (err, users) {
+    var userMap = {};
+
+    users.forEach(function (user) {
+      userMap[user._id] = user;
+    });
+
+    res.send(userMap);
+  });
+});
 router.post("/user", (req, res) => {
   const fName = req.body.firstInput;
   const lName = req.body.secondInput;
@@ -87,11 +98,11 @@ router.post("/user", (req, res) => {
         res.sendStatus(401);
         console.log(err);
       } else {
-        console.log(req.user);
         res.sendStatus(200);
       }
     }
   );
+  // console.log(res.user);
 });
 router.get("/", isAuth);
 
