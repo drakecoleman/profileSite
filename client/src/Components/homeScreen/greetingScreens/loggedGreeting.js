@@ -47,7 +47,6 @@ function Logged(props) {
         }
       })
       .then((data) => {
-        console.log(data._id);
         setUserInfo({
           ...userInfo,
           id: data._id,
@@ -55,7 +54,7 @@ function Logged(props) {
           lName: data.lName,
           title: data.title,
         });
-      })
+      }, [])
 
       .catch((err) => console.log(err));
   }, [openDialogue]);
