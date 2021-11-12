@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import DivforButton from "../Button/DivforButton";
-import Button from "../Button/button";
+
 import Notlogged from "./greetingScreens/notLoggedGreeting";
 import Logged from "./greetingScreens/loggedGreeting";
 function Home() {

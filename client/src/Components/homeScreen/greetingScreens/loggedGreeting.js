@@ -19,7 +19,7 @@ function Logged(props) {
     } else {
       setDialogue(true);
     }
-  }, [userInfo]);
+  }, [userInfo, setDialogue]);
 
   const closeDialogue = () => {
     setDialogue(true);
@@ -44,17 +44,20 @@ function Logged(props) {
         }
       })
       .then((data) => {
-        setUserInfo({
-          ...userInfo,
-          id: data._id,
-          fName: data.fName,
-          lName: data.lName,
-          title: data.title,
-        });
-      }, [])
-
+        if (userInfo.fName === "") {
+          setUserInfo({
+            ...userInfo,
+            id: data._id,
+            fName: data.fName,
+            lName: data.lName,
+            title: data.title,
+          });
+        } else {
+          return;
+        }
+      })
       .catch((err) => console.log(err));
-  }, [openDialogue]);
+  }, [userInfo, setUserInfo]);
   useEffect(() => {
     fetch("http://localhost:3000/users", {
       method: "GET",
@@ -75,14 +78,10 @@ function Logged(props) {
       })
       .then((data) => {
         console.log(data);
-        return;
       })
 
       .catch((err) => console.log(err));
   }, []);
-  const href = (e) => {
-    e.preventdefault();
-  };
 
   return [
     <div className="wrapper">
@@ -152,7 +151,7 @@ function Logged(props) {
         </div>
         <ul>
           <li>
-            <a href={href} className="active">
+            <a href="/" className="active">
               <span className="icon">
                 <i className="fas fa-home"></i>
               </span>
@@ -160,7 +159,7 @@ function Logged(props) {
             </a>
           </li>
           <li>
-            <a href={href}>
+            <a href="/">
               <span className="icon">
                 <i className="fas fa-desktop"></i>
               </span>
@@ -168,7 +167,7 @@ function Logged(props) {
             </a>
           </li>
           <li>
-            <a href={href}>
+            <a href="/">
               <span className="icon">
                 <i className="fas fa-user-friends"></i>
               </span>
@@ -176,7 +175,7 @@ function Logged(props) {
             </a>
           </li>
           <li>
-            <a href={href}>
+            <a href="/">
               <span className="icon">
                 <i className="fas fa-tachometer-alt"></i>
               </span>
@@ -184,7 +183,7 @@ function Logged(props) {
             </a>
           </li>
           <li>
-            <a href={href}>
+            <a href="/">
               <span className="icon">
                 <i className="fas fa-database"></i>
               </span>
@@ -192,7 +191,7 @@ function Logged(props) {
             </a>
           </li>
           <li>
-            <a href={href}>
+            <a href="/">
               <span className="icon">
                 <i className="fas fa-chart-line"></i>
               </span>
@@ -200,7 +199,7 @@ function Logged(props) {
             </a>
           </li>
           <li>
-            <a href={href}>
+            <a href="/">
               <span className="icon">
                 <i className="fas fa-user-shield"></i>
               </span>
@@ -208,7 +207,7 @@ function Logged(props) {
             </a>
           </li>
           <li>
-            <a href={href}>
+            <a href="/">
               <span className="icon">
                 <i className="fas fa-cog"></i>
               </span>

@@ -4,7 +4,7 @@ import Button from "../../Button/button";
 import Video from "../../../assets/homeVideo.mp4";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
+// import DialogContentText from "@mui/material/DialogContentText";
 import RegisterBoard from "../../Register/registerBoard";
 import LoginBoard from "../../Login/loginBoard";
 import useMediaQuery from "@mui/material/useMediaQuery";

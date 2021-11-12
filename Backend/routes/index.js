@@ -33,9 +33,11 @@ router.use(bodyParser.urlencoded({ extended: false }));
 // });
 router.post("/login", (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
-    if (err) throw err;
-    if (!user) res.send("No User Exists");
-    else {
+    if (err) {
+      throw err;
+    } else if (!user) {
+      res.send("No User Exists");
+    } else {
       req.logIn(user, (err) => {
         if (err) throw err;
         res.send(user);
@@ -70,16 +72,17 @@ router.post("/register", (req, res) => {
  *
  */
 router.get("/user", (req, res) => {
+  console.log(req.user);
   res.send(req.user);
 });
 router.get("/users", (req, res) => {
-  const userMap = {};
   User.find({}, function (err, users) {
+    const userMap = {};
     users.forEach(function (user) {
       userMap[user._id] = user;
     });
-    return userMap;
-  }).then(res.status(200).send());
+    res.send(userMap);
+  });
 });
 router.post("/user", (req, res) => {
   const fName = req.body.firstInput;
@@ -102,7 +105,10 @@ router.post("/user", (req, res) => {
   );
   // console.log(res.user);
 });
-router.get("/", isAuth);
+router.get("/", isAuth, (req, res) => {
+  console.log(req.user);
+  res.send({ user: req.user, auth: true });
+});
 
 // router.get("/logout", (req, res) => {
 //   res.status(200);

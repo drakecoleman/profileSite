@@ -63,6 +63,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use("/", routes);
+
 // app.post("/login", (req, res) => {
 //   passport.authenticate("local", (err, user, info) => {
 //     console.log("here");

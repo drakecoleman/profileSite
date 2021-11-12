@@ -49,6 +49,7 @@ function Board(props) {
 
       Match.style.display = "block";
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [info]);
 
   const input = (e) => {

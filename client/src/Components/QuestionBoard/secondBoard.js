@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+
 import Label from "./label";
 import "./../Register/register.css";
 import { LoginContext, DialogueContext } from "./../../Context/context";
@@ -7,7 +7,7 @@ import { LoginContext, DialogueContext } from "./../../Context/context";
 function SecondBoard(props) {
   const { userInfo, setUserInfo } = useContext(LoginContext);
   const { openDialogue, setDialogue } = useContext(DialogueContext);
-  // const history = useHistory();
+
   // const Match = document.querySelector("label");
 
   const [register, changeRegister] = useState({
@@ -50,6 +50,7 @@ function SecondBoard(props) {
         repeatPassword: false,
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [info]);
 
   const input = (e) => {
