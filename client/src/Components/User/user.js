@@ -1,34 +1,34 @@
 import React, { useState } from "react";
-import DivforButton from "./../Button/DivforButton";
-import Button from "../Button/button";
-import { useHistory } from "react-router-dom";
-import SimpleFileUpload from "react-simple-file-upload";
+// import DivforButton from "./../Button/DivforButton";
+// import Button from "../Button/button";
+// import { useHistory } from "react-router-dom";
+// import SimpleFileUpload from "react-simple-file-upload";
 import "./user.css";
 
 function UserProfile() {
-  const history = useHistory();
+  // const history = useHistory();
   const [edit, changeEdit] = useState(false);
 
   // const [name, changeName] = useState();
   // const params = useParams();
 
-  fetch("http://localhost:3000/user", {
-    method: "GET",
-    credentials: "include",
-    withCredentials: true,
+  // fetch("http://localhost:3000/user", {
+  //   method: "GET",
+  //   credentials: "include",
+  //   withCredentials: true,
 
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then(function (response) {
-      if (!response.ok) {
-        return history.push("/login");
-      } else {
-        return;
-      }
-    })
-    .catch((err) => console.log(err));
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  // })
+  //   .then(function (response) {
+  //     if (!response.ok) {
+  //       return history.push("/login");
+  //     } else {
+  //       return;
+  //     }
+  //   })
+  //   .catch((err) => console.log(err));
   // https://{server}.gofile.io/uploadFile
   const [file, setFile] = useState(
     "https://static.files-simplefileupload.com/atsdvx264ufd6mn1dj6x0avb9l35/yourimage.jpeg"
@@ -42,7 +42,7 @@ function UserProfile() {
 
   return (
     <section>
-      <div className="buttonDiv">
+      {/* <div className="buttonDiv">
         <DivforButton
           id="butt"
           button={
@@ -71,7 +71,7 @@ function UserProfile() {
         <DivforButton
           button={<Button onClick={editProfilePicture} text="Edit" />}
         />
-      )}
+      )} */}
     </section>
   );
 }

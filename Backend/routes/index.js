@@ -72,20 +72,14 @@ router.post("/register", (req, res) => {
 router.get("/user", (req, res) => {
   res.send(req.user);
 });
-router.get("/users", (req, res, err) => {
+router.get("/users", (req, res) => {
+  const userMap = {};
   User.find({}, function (err, users) {
-    if (!err) {
-      var userMap = {};
-
-      users.forEach(function (user) {
-        userMap[user._id] = user;
-      });
-
-      res.send(userMap);
-    } else {
-      console.log(err);
-    }
-  });
+    users.forEach(function (user) {
+      userMap[user._id] = user;
+    });
+    return userMap;
+  }).then(res.status(200).send());
 });
 router.post("/user", (req, res) => {
   const fName = req.body.firstInput;

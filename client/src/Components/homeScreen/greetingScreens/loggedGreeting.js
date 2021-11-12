@@ -1,7 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
-import DivforButton from "../../Button/DivforButton";
-import Button from "../../Button/button";
+import React, { useContext, useEffect } from "react";
+// import { useHistory } from "react-router-dom";
+
 import "./loggedStyles.css";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
@@ -11,8 +10,6 @@ import { LoginContext, DialogueContext } from "../../../Context/context";
 function Logged(props) {
   const { userInfo, setUserInfo } = useContext(LoginContext);
   const { openDialogue, setDialogue } = useContext(DialogueContext);
-
-  const history = useHistory();
 
   const [fullWidth, setFullWidth] = React.useState(true);
   const [maxWidth, setMaxWidth] = React.useState("sm");
@@ -78,10 +75,14 @@ function Logged(props) {
       })
       .then((data) => {
         console.log(data);
+        return;
       })
 
       .catch((err) => console.log(err));
   }, []);
+  const href = (e) => {
+    e.preventdefault();
+  };
 
   return [
     <div className="wrapper">
@@ -151,7 +152,7 @@ function Logged(props) {
         </div>
         <ul>
           <li>
-            <a href="#" className="active">
+            <a href={href} className="active">
               <span className="icon">
                 <i className="fas fa-home"></i>
               </span>
@@ -159,7 +160,7 @@ function Logged(props) {
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href={href}>
               <span className="icon">
                 <i className="fas fa-desktop"></i>
               </span>
@@ -167,7 +168,7 @@ function Logged(props) {
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href={href}>
               <span className="icon">
                 <i className="fas fa-user-friends"></i>
               </span>
@@ -175,7 +176,7 @@ function Logged(props) {
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href={href}>
               <span className="icon">
                 <i className="fas fa-tachometer-alt"></i>
               </span>
@@ -183,7 +184,7 @@ function Logged(props) {
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href={href}>
               <span className="icon">
                 <i className="fas fa-database"></i>
               </span>
@@ -191,7 +192,7 @@ function Logged(props) {
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href={href}>
               <span className="icon">
                 <i className="fas fa-chart-line"></i>
               </span>
@@ -199,7 +200,7 @@ function Logged(props) {
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href={href}>
               <span className="icon">
                 <i className="fas fa-user-shield"></i>
               </span>
@@ -207,7 +208,7 @@ function Logged(props) {
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href={href}>
               <span className="icon">
                 <i className="fas fa-cog"></i>
               </span>

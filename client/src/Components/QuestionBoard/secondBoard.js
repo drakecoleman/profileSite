@@ -7,8 +7,8 @@ import { LoginContext, DialogueContext } from "./../../Context/context";
 function SecondBoard(props) {
   const { userInfo, setUserInfo } = useContext(LoginContext);
   const { openDialogue, setDialogue } = useContext(DialogueContext);
-  const history = useHistory();
-  const Match = document.querySelector("label");
+  // const history = useHistory();
+  // const Match = document.querySelector("label");
 
   const [register, changeRegister] = useState({
     email: false,
