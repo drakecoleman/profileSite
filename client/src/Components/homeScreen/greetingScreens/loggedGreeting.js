@@ -1,6 +1,4 @@
 import React, { useContext, useEffect } from "react";
-// import { useHistory } from "react-router-dom";
-
 import "./loggedStyles.css";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
@@ -25,63 +23,85 @@ function Logged(props) {
     setDialogue(true);
   };
 
-  useEffect(() => {
-    fetch("http://localhost:3000/user", {
-      method: "GET",
-      credentials: "include",
-      withCredentials: true,
+  // useEffect(() => {
+  // fetch("http://localhost:3000/user", {
+  //   method: "GET",
+  //   credentials: "include",
+  //   withCredentials: true,
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  // })
+  //   .then(function (response) {
+  //     if (!response.ok) {
+  //       console.log(response.status);
+  //       throw new Error("HTTP status " + response.status);
+  //     } else {
+  //       return response.json();
+  //     }
+  //   })
+  //   .then((data) => {
+  //     console.log(data);
+  //     if (userInfo.fName === "") {
+  //       setUserInfo({
+  //         ...userInfo,
+  //         id: data._id,
+  //         fName: data.fName,
+  //         lName: data.lName,
+  //         title: data.title,
+  //       });
+  //     } else {
+  //       return;
+  //     }
+  //   });
+  // .then(() => {
+  //   fetch("http://localhost:3000/users", {
+  //     method: "GET",
+  //     credentials: "include",
+  //     withCredentials: true,
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   })
+  //     .then(function (response) {
+  //       if (!response.ok) {
+  //         console.log(response.status);
+  //         throw new Error("HTTP status " + response.status);
+  //       } else {
+  //         return response.json();
+  //       }
+  //     })
+  //     .then((data) => {
+  //       console.log(data);
+  //     })
+  //     .catch((err) => console.log(err));
+  // })
+  // .catch((err) => console.log(err));
+  // }, [userInfo, setUserInfo]);
+  // useEffect(() => {
+  //   fetch("http://localhost:3000/users", {
+  //     method: "GET",
+  //     credentials: "include",
+  //     withCredentials: true,
 
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then(function (response) {
-        if (!response.ok) {
-          console.log(response.status);
-          throw new Error("HTTP status " + response.status);
-        } else {
-          return response.json();
-        }
-      })
-      .then((data) => {
-        if (userInfo.fName === "") {
-          setUserInfo({
-            ...userInfo,
-            id: data._id,
-            fName: data.fName,
-            lName: data.lName,
-            title: data.title,
-          });
-        } else {
-          return;
-        }
-      })
-      .catch((err) => console.log(err));
-  }, [userInfo, setUserInfo]);
-  useEffect(() => {
-    fetch("http://localhost:3000/users", {
-      method: "GET",
-      credentials: "include",
-      withCredentials: true,
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   })
+  //     .then(function (response) {
+  //       if (!response.ok) {
+  //         console.log(response.status);
+  //         throw new Error("HTTP status " + response.status);
+  //       } else {
+  //         return response.json();
+  //       }
+  //     })
+  //     .then((data) => {
+  //       console.log(data);
+  //     })
 
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then(function (response) {
-        if (!response.ok) {
-          console.log(response.status);
-          throw new Error("HTTP status " + response.status);
-        } else {
-          return response.json();
-        }
-      })
-      .then((data) => {
-        console.log(data);
-      })
-
-      .catch((err) => console.log(err));
-  }, []);
+  //     .catch((err) => console.log(err));
+  // }, []);
 
   return [
     <div className="wrapper">

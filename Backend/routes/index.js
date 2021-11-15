@@ -17,20 +17,6 @@ router.use(bodyParser.urlencoded({ extended: false }));
  *
  */
 
-// router.post(
-//   "/login",
-
-//   passport.authenticate("local"),
-//   (req, res) => {
-//     console.log("working");
-//     res.sendStatus(200);
-//   }
-// );
-// router.post("/login", (req, res) => {
-//   passport.authenticate("local", (err, user, info) => {
-//     res.status(200);
-//   });
-// });
 router.post("/login", (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) {
@@ -42,7 +28,7 @@ router.post("/login", (req, res, next) => {
         if (err) throw err;
         res.send(user);
         return;
-        console.log(req.user);
+        // console.log(req.user);
       });
     }
   })(req, res, next);
@@ -71,19 +57,7 @@ router.post("/register", (req, res) => {
  * -------------- GET ROUTES ----------------
  *
  */
-router.get("/user", (req, res) => {
-  console.log(req.user);
-  res.send(req.user);
-});
-router.get("/users", (req, res) => {
-  User.find({}, function (err, users) {
-    const userMap = {};
-    users.forEach(function (user) {
-      userMap[user._id] = user;
-    });
-    res.send(userMap);
-  });
-});
+
 router.post("/user", (req, res) => {
   const fName = req.body.firstInput;
   const lName = req.body.secondInput;
@@ -103,51 +77,20 @@ router.post("/user", (req, res) => {
       }
     }
   );
-  // console.log(res.user);
 });
 router.get("/", isAuth, (req, res) => {
-  console.log(req.user);
-  res.send({ user: req.user, auth: true });
+  const userMap = {};
+  User.find({}, function (err, users) {
+    users.forEach(function (user) {
+      userMap[user._id] = user;
+    });
+    return userMap;
+  })
+    .then((response) => {
+      res.status(200).json({ user: req.user, auth: true, response });
+      return;
+    })
+    .catch((err) => console.log(err));
 });
-
-// router.get("/logout", (req, res) => {
-//   res.status(200);
-//   req.logOut();
-// });
-// app.use((req, res) => {
-//   User.findOne({ url: req.body.url })
-//     .then((user) => {
-//       if (!user) {
-//         console.log("No user Found");
-//         res.send("No user found");
-//       } else {
-//         console.log("user Found");
-//         res.send(user).status(200);
-//       }
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// });
-// function getUser(req, res, next) {
-//   User.findOne({ url: req.body.url })
-//     .then((user) => {
-//       if (!user) {
-//         console.log("No user Found");
-//         res.status(401);
-//         next();
-//       } else {
-//         console.log("success");
-//         res.send({ user }).status(200);
-//       }
-//     })
-//     .then((response) => console.log(response))
-
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// }
-
-// router.post("/visitor", getUser);
 
 module.exports = router;
