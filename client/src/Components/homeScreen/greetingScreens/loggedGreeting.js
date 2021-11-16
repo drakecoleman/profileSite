@@ -4,6 +4,18 @@ import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import SecondBoard from "../../QuestionBoard/secondBoard";
 import { LoginContext, DialogueContext } from "../../../Context/context";
+import Card from "./../../Cards/card";
+import { styled } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
+
+const Item = styled(Paper)(({ theme }) => ({
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: "center",
+  color: theme.palette.text.secondary,
+}));
 
 function Logged(props) {
   const { userInfo, setUserInfo } = useContext(LoginContext);
@@ -11,6 +23,13 @@ function Logged(props) {
 
   const [fullWidth, setFullWidth] = React.useState(true);
   const [maxWidth, setMaxWidth] = React.useState("sm");
+
+  const [expanded, setExpanded] = React.useState(false);
+  let userArray = props.users;
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
   useEffect(() => {
     if (userInfo.fName !== "") {
       setDialogue(false);
@@ -22,86 +41,6 @@ function Logged(props) {
   const closeDialogue = () => {
     setDialogue(true);
   };
-
-  // useEffect(() => {
-  // fetch("http://localhost:3000/user", {
-  //   method: "GET",
-  //   credentials: "include",
-  //   withCredentials: true,
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  // })
-  //   .then(function (response) {
-  //     if (!response.ok) {
-  //       console.log(response.status);
-  //       throw new Error("HTTP status " + response.status);
-  //     } else {
-  //       return response.json();
-  //     }
-  //   })
-  //   .then((data) => {
-  //     console.log(data);
-  //     if (userInfo.fName === "") {
-  //       setUserInfo({
-  //         ...userInfo,
-  //         id: data._id,
-  //         fName: data.fName,
-  //         lName: data.lName,
-  //         title: data.title,
-  //       });
-  //     } else {
-  //       return;
-  //     }
-  //   });
-  // .then(() => {
-  //   fetch("http://localhost:3000/users", {
-  //     method: "GET",
-  //     credentials: "include",
-  //     withCredentials: true,
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   })
-  //     .then(function (response) {
-  //       if (!response.ok) {
-  //         console.log(response.status);
-  //         throw new Error("HTTP status " + response.status);
-  //       } else {
-  //         return response.json();
-  //       }
-  //     })
-  //     .then((data) => {
-  //       console.log(data);
-  //     })
-  //     .catch((err) => console.log(err));
-  // })
-  // .catch((err) => console.log(err));
-  // }, [userInfo, setUserInfo]);
-  // useEffect(() => {
-  //   fetch("http://localhost:3000/users", {
-  //     method: "GET",
-  //     credentials: "include",
-  //     withCredentials: true,
-
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   })
-  //     .then(function (response) {
-  //       if (!response.ok) {
-  //         console.log(response.status);
-  //         throw new Error("HTTP status " + response.status);
-  //       } else {
-  //         return response.json();
-  //       }
-  //     })
-  //     .then((data) => {
-  //       console.log(data);
-  //     })
-
-  //     .catch((err) => console.log(err));
-  // }, []);
 
   return [
     <div className="wrapper">
@@ -129,33 +68,15 @@ function Logged(props) {
           <h4>DashBoard</h4>
         </div>
         <div className="container">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum
-          dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-          commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-          velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-          occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-          mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur
-          adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
-          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-          ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-          irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-          fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-          sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem
-          ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-          veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-          ea commodo consequat. Duis aute irure dolor in reprehenderit in
-          voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
-          sint occaecat cupidatat non proident, sunt in culpa qui officia
-          deserunt mollit anim id est laborum.
+          <Box sx={{ flexGrow: 1 }}>
+            <Grid container spacing={2}>
+              {userArray.map((item) => (
+                <Grid item sm={12} md={6} lg={3}>
+                  <Card name={item.fName} />
+                </Grid>
+              ))}
+            </Grid>
+          </Box>
         </div>
       </div>
       <div className="sidebar">
