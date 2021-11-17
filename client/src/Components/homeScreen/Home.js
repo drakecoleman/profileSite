@@ -20,7 +20,6 @@ function Home() {
     })
       .then(function (response) {
         if (!response.ok) {
-          // console.log(response.status);
           changeLogged(false);
         } else {
           changeLogged(true);
@@ -40,7 +39,6 @@ function Home() {
 
       .catch((err) => console.log(err));
   }, []);
-  console.log(usersArray, "Hell yeah");
 
   return logged ? <Logged users={usersArray} /> : <Notlogged />;
 }

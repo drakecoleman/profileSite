@@ -19,6 +19,7 @@ import Box from "@mui/material/Box";
 import picture from "../../assets/yourimage.jpeg";
 import "./cardStyles.css";
 import MailIcon from "@material-ui/icons/Mail";
+import ChatBox from "./../Chat/chatBox";
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -39,46 +40,50 @@ function Profile(props) {
 
   return [
     <Card sx={{}}>
-      <Box sx={{ display: "flex" }}>
-        <CardHeader
-          avatar={
-            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-              R
-            </Avatar>
-          }
-          title={props.name}
-          subheader={props.title}
-        />
-        <CardMedia
-          component="img"
-          height="394"
-          image={picture}
-          alt="Paella dish"
-        />
+      <CardHeader
+        avatar={
+          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+            R
+          </Avatar>
+        }
+        title={props.name}
+        subheader={props.title}
+      />
+      <CardMedia
+        component="img"
+        height="394"
+        image={picture}
+        alt="Paella dish"
+      />
+      <CardContent>
+        <p>
+          This impressive paella is a perfect party dish and a fun meal to cook
+          together with your guests. Add 1 cup of frozen peas along with the
+          mussels, if you like.
+        </p>
+      </CardContent>
+      <CardActions disableSpacing>
+        <IconButton aria-label="add to favorites">
+          <MailIcon color="primary" fontSize="large" />
+        </IconButton>
+        <IconButton aria-label="share">
+          <ShareIcon />
+        </IconButton>
+        <ExpandMore
+          expand={expanded}
+          onClick={handleExpandClick}
+          aria-expanded={expanded}
+          aria-label="show more"
+        >
+          <ExpandMoreIcon />
+        </ExpandMore>
+      </CardActions>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <p>
-            This impressive paella is a perfect party dish and a fun meal to
-            cook together with your guests. Add 1 cup of frozen peas along with
-            the mussels, if you like.
-          </p>
+          <Typography paragraph>Method:</Typography>
+          <ChatBox />
         </CardContent>
-        <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
-            <MailIcon color="primary" fontSize="large" />
-          </IconButton>
-          <IconButton aria-label="share">
-            <ShareIcon />
-          </IconButton>
-          <ExpandMore
-            expand={expanded}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label="show more"
-          >
-            <ExpandMoreIcon />
-          </ExpandMore>
-        </CardActions>
-      </Box>
+      </Collapse>
     </Card>,
   ];
 }
