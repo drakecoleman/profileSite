@@ -26,6 +26,10 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log(`Disconnected user: ${socket.id}`);
   });
+  socket.on("send_message", (data) => {
+    console.log(data);
+    // socket.to(data.room).emit("receive_message", data);
+  });
 });
 
 const User = mongoose.models.User;

@@ -3,27 +3,28 @@ import "./chatBoxStyles.css";
 import io from "socket.io-client";
 const socket = io.connect("http://localhost:3000");
 
-const Clicker = (e) => {
-  const target = e.target;
-
-  console.log(target.value);
-  if (target.value === "") {
-    target.removeAttribute("good", "");
-  } else {
-    target.setAttribute("good", "");
-  }
-};
-
 function ChatBox() {
   useEffect(() => {
     socket.on("receive_message", (data) => {
       setMessageList((list) => [...list, data]);
     });
   }, [socket]);
+
   const [currentMessage, setCurrentMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
+  const Clicker = (e) => {
+    const target = e.target;
 
-  const Submit = async () => {
+    if (target.value === "") {
+      target.removeAttribute("good", "");
+    } else {
+      target.setAttribute("good", "");
+    }
+  };
+
+  const Submit = async (e) => {
+    e.preventDefault();
+
     if (currentMessage !== "") {
       const messageData = {
         message: currentMessage,
@@ -70,8 +71,8 @@ function ChatBox() {
           value={currentMessage}
           className="good"
           onChange={(e) => {
-            Clicker(e);
             setCurrentMessage(e.target.value);
+            Clicker(e);
           }}
           type="text"
           autoComplete="on"
