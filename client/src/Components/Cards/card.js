@@ -15,6 +15,7 @@ import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { CardActionArea } from "@mui/material";
+import "./cardStyles.css";
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -35,20 +36,19 @@ function Cards(props) {
 
   return [
     <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea>
+      <CardActionArea
+        onClick={() => {
+          props.click(props.value);
+        }}
+      >
         <CardHeader
           avatar={
             <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
               R
             </Avatar>
           }
-          action={
-            <IconButton aria-label="settings">
-              <MoreVertIcon />
-            </IconButton>
-          }
           title={props.name}
-          subheader="September 14, 2016"
+          subheader={props.title}
         />
       </CardActionArea>
       <CardMedia

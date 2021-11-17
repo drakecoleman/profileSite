@@ -1,5 +1,6 @@
-import React, { useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "./loggedStyles.css";
+import Profile from "./../../Cards/profile";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import SecondBoard from "../../QuestionBoard/secondBoard";
@@ -41,6 +42,10 @@ function Logged(props) {
   const closeDialogue = () => {
     setDialogue(true);
   };
+  const profileClick = (f) => {
+    console.log(f);
+  };
+  const [test, setTest] = useState(false);
 
   return [
     <div className="wrapper">
@@ -68,15 +73,29 @@ function Logged(props) {
           <h4>DashBoard</h4>
         </div>
         <div className="container">
-          <Box sx={{ flexGrow: 1 }}>
-            <Grid container spacing={2}>
-              {userArray.map((item) => (
-                <Grid item sm={12} md={6} lg={3}>
-                  <Card name={item.fName} />
-                </Grid>
-              ))}
-            </Grid>
-          </Box>
+          {test ? (
+            <Box sx={{ flexGrow: 1 }}>
+              <Grid container spacing={2}>
+                {userArray.map((item) => (
+                  <Grid item value={item._id} sm={12} md={6} lg={3}>
+                    <Card
+                      link="/user"
+                      click={profileClick}
+                      title={item.title}
+                      name={item.fName}
+                      value={item._id}
+                    />
+                  </Grid>
+                ))}
+              </Grid>
+            </Box>
+          ) : (
+            <Box sx={{ display: "flex", flexDirection: "row" }}>
+              <Grid item lg={12}>
+                <Profile />
+              </Grid>
+            </Box>
+          )}
         </div>
       </div>
       <div className="sidebar">
