@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import Notlogged from "./greetingScreens/notLoggedGreeting";
 import Logged from "./greetingScreens/loggedGreeting";
 import { LoginContext, DialogueContext } from "./../../Context/context";
 
 function Home() {
+  const history = useHistory();
   const { userInfo, setUserInfo } = useContext(LoginContext);
   const { openDialogue, setDialogue } = useContext(DialogueContext);
   let [logged, changeLogged] = useState(false);
@@ -38,7 +40,7 @@ function Home() {
       })
 
       .catch((err) => console.log(err));
-  }, []);
+  }, [logged, changeLogged, userInfo, setUserInfo]);
 
   return logged ? <Logged users={usersArray} /> : <Notlogged />;
 }

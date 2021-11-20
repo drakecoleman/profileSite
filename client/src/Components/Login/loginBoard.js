@@ -29,11 +29,12 @@ function RegisterBoard() {
         if (!response.ok) {
           console.log(response.status);
           throw new Error("HTTP status " + response.status);
-        } else {
-          return history.push("/");
         }
       })
-      .then((data) => console.log(data))
+      .then((data) => {
+        history.go(0);
+        console.log("here");
+      })
 
       .catch((err) => console.log(err));
   }

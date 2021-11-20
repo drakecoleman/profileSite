@@ -39,6 +39,7 @@ function Cards(props) {
       <CardActionArea
         onClick={() => {
           props.click(props.value);
+          return;
         }}
       >
         <CardHeader

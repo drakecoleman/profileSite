@@ -52,6 +52,13 @@ router.post("/register", (req, res) => {
   newUser.save().then((user) => {});
   res.sendStatus(200);
 });
+router.post("/getUserProfile", (req, res) => {
+  console.log(req.body);
+  User.find({ _id: req.body.f }, function (err, user) {
+    console.log(user);
+    res.status(200).send(user);
+  });
+});
 
 /**
  * -------------- GET ROUTES ----------------

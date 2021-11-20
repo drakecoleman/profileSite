@@ -27,6 +27,38 @@ function Logged(props) {
 
   const [expanded, setExpanded] = React.useState(false);
   let userArray = props.users;
+  const [profileProps, setProfileProps] = useState({
+    name: "",
+    title: "",
+    id: "",
+  });
+
+  const profileClick = (f) => {
+    fetch("http://localhost:3000/getUserProfile", {
+      method: "POST",
+      credentials: "include",
+      withCredentials: true,
+
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ f }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setProfileProps((prev) => {
+          return {
+            ...prev,
+            name: data[0].fName,
+            title: data[0].title,
+            id: data[0]._id,
+          };
+        });
+      });
+    setTest(false);
+  };
+
+  const [test, setTest] = useState(true);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -42,10 +74,6 @@ function Logged(props) {
   const closeDialogue = () => {
     setDialogue(true);
   };
-  const profileClick = (f) => {
-    console.log(f);
-  };
-  const [test, setTest] = useState(false);
 
   return [
     <div className="wrapper">
@@ -80,7 +108,11 @@ function Logged(props) {
                   <Grid item value={item._id} sm={12} md={6} lg={3}>
                     <Card
                       link="/user"
-                      click={profileClick}
+                      click={() => {
+                        {
+                          profileClick(item._id);
+                        }
+                      }}
                       title={item.title}
                       name={item.fName}
                       value={item._id}
@@ -92,7 +124,7 @@ function Logged(props) {
           ) : (
             <Box sx={{ display: "flex", flexDirection: "row" }}>
               <Grid item lg={12}>
-                <Profile />
+                <Profile name={profileProps.name} title={profileProps.title} />
               </Grid>
             </Box>
           )}

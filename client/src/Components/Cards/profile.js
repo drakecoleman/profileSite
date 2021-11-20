@@ -20,6 +20,7 @@ import picture from "../../assets/yourimage.jpeg";
 import "./cardStyles.css";
 import MailIcon from "@material-ui/icons/Mail";
 import ChatBox from "./../Chat/chatBox";
+import CloseIcon from "@material-ui/icons/Close";
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -48,6 +49,11 @@ function Profile(props) {
         }
         title={props.name}
         subheader={props.title}
+        action={
+          <IconButton aria-label="close">
+            <CloseIcon />
+          </IconButton>
+        }
       />
       <CardMedia
         component="img"
