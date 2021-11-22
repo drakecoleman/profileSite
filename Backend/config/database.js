@@ -18,6 +18,7 @@ const UserSchema = new mongoose.Schema({
   hash: String,
   salt: String,
   admin: Boolean,
+  chats: [{ userid: String, messages: [{ user: String, message: String }] }],
 });
 
 const User = mongoose.model("User", UserSchema);

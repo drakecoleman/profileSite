@@ -4,12 +4,18 @@ import Profile from "./../../Cards/profile";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import SecondBoard from "../../QuestionBoard/secondBoard";
-import { LoginContext, DialogueContext } from "../../../Context/context";
+import {
+  LoginContext,
+  DialogueContext,
+  ChatContext,
+} from "../../../Context/context";
 import Card from "./../../Cards/card";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
+
+import { BrowserRouter as Router, Switch } from "react-router-dom";
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -19,6 +25,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 function Logged(props) {
+  const { id, setID } = useContext(ChatContext);
   const { userInfo, setUserInfo } = useContext(LoginContext);
   const { openDialogue, setDialogue } = useContext(DialogueContext);
 
@@ -51,9 +58,9 @@ function Logged(props) {
             ...prev,
             name: data[0].fName,
             title: data[0].title,
-            id: data[0]._id,
           };
         });
+        setID(data[0]._id);
       });
     setTest(false);
   };
@@ -191,11 +198,11 @@ function Logged(props) {
             </a>
           </li>
           <li>
-            <a href="/">
+            <a href="/messages">
               <span className="icon">
                 <i className="fas fa-user-shield"></i>
               </span>
-              <span className="item">Admin</span>
+              <span className="item">Messages</span>
             </a>
           </li>
           <li>

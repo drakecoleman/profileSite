@@ -1,9 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import {
+  LoginContext,
+  DialogueContext,
+  ChatContext,
+} from "./../../Context/context";
 import "./chatBoxStyles.css";
 import io from "socket.io-client";
 const socket = io.connect("http://localhost:3000");
 
 function ChatBox() {
+  const { id, setID } = useContext(ChatContext);
+
+  const { userInfo, setUserInfo } = useContext(LoginContext);
+
   useEffect(() => {
     socket.on("receive_message", (data) => {
       setMessageList((list) => [...list, data]);
@@ -27,12 +36,15 @@ function ChatBox() {
 
     if (currentMessage !== "") {
       const messageData = {
+        sender: userInfo.id,
+        receiver: id,
         message: currentMessage,
         time:
           new Date(Date.now()).getHours() +
           ":" +
           new Date(Date.now()).getMinutes(),
       };
+      console.log(messageData);
 
       await socket.emit("send_message", messageData);
       setMessageList((list) => [...list, messageData]);
@@ -44,26 +56,28 @@ function ChatBox() {
     <div className="chatbox">
       <div className="chat-window">
         <article className="msg-container msg-remote" id="msg-0">
-          <div className="msg-box">
-            <img
-              className="user-img"
-              id="user-0"
-              src="//gravatar.com/avatar/00034587632094500000000000000000?d=retro"
-            />
-            <div className="flr">
-              <div className="messages">
-                <p className="msg" id="msg-0">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Praesent varius, neque non tristique tincidunt, mauris nunc
-                  efficitur erat, elementum semper justo odio id nisi.
-                </p>
+          {messageList.map((item) => {
+            return (
+              <div className="msg-box">
+                <img
+                  className="user-img"
+                  id="user-0"
+                  src="//gravatar.com/avatar/00034587632094500000000000000000?d=retro"
+                />
+                <div className="flr">
+                  <div className="messages">
+                    <p className="msg" id="msg-0">
+                      {item.message}
+                    </p>
+                    <span className="timestamp">
+                      <span className="username">Name</span>&bull;
+                      <span className="posttime">3 minutes ago</span>
+                    </span>
+                  </div>
+                </div>
               </div>
-              <span className="timestamp">
-                <span className="username">Name</span>&bull;
-                <span className="posttime">3 minutes ago</span>
-              </span>
-            </div>
-          </div>
+            );
+          })}
         </article>
       </div>
       <form className="chat-input ">

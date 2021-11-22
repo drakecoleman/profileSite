@@ -40,7 +40,7 @@ function Home() {
       })
 
       .catch((err) => console.log(err));
-  }, [logged, changeLogged, userInfo, setUserInfo]);
+  }, [logged, changeLogged]);
 
   return logged ? <Logged users={usersArray} /> : <Notlogged />;
 }

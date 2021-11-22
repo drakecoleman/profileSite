@@ -28,7 +28,6 @@ router.post("/login", (req, res, next) => {
         if (err) throw err;
         res.send(user);
         return;
-        // console.log(req.user);
       });
     }
   })(req, res, next);
@@ -53,9 +52,7 @@ router.post("/register", (req, res) => {
   res.sendStatus(200);
 });
 router.post("/getUserProfile", (req, res) => {
-  console.log(req.body);
   User.find({ _id: req.body.f }, function (err, user) {
-    console.log(user);
     res.status(200).send(user);
   });
 });
