@@ -8,6 +8,7 @@ import {
   LoginContext,
   DialogueContext,
   ChatContext,
+  ShowProfileContext,
 } from "../../../Context/context";
 import Card from "./../../Cards/card";
 import { styled } from "@mui/material/styles";
@@ -25,6 +26,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 function Logged(props) {
+  const { show, setShow } = useContext(ShowProfileContext);
   const { id, setID } = useContext(ChatContext);
   const { userInfo, setUserInfo } = useContext(LoginContext);
   const { openDialogue, setDialogue } = useContext(DialogueContext);
@@ -62,7 +64,7 @@ function Logged(props) {
         });
         setID(data[0]._id);
       });
-    setTest(false);
+    setShow(true);
   };
 
   const [test, setTest] = useState(true);
@@ -108,7 +110,13 @@ function Logged(props) {
           <h4>DashBoard</h4>
         </div>
         <div className="container">
-          {test ? (
+          {show ? (
+            <Box sx={{ display: "flex", flexDirection: "row" }}>
+              <Grid item lg={12}>
+                <Profile name={profileProps.name} title={profileProps.title} />
+              </Grid>
+            </Box>
+          ) : (
             <Box sx={{ flexGrow: 1 }}>
               <Grid container spacing={2}>
                 {userArray.map((item) => (
@@ -126,12 +134,6 @@ function Logged(props) {
                     />
                   </Grid>
                 ))}
-              </Grid>
-            </Box>
-          ) : (
-            <Box sx={{ display: "flex", flexDirection: "row" }}>
-              <Grid item lg={12}>
-                <Profile name={profileProps.name} title={profileProps.title} />
               </Grid>
             </Box>
           )}

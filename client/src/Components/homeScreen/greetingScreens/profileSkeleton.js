@@ -1,12 +1,30 @@
 import React, { useState, useContext, useEffect } from "react";
 import "./loggedStyles.css";
 import { LoginContext, DialogueContext } from "../../../Context/context";
-
-import { BrowserRouter as Router, Switch } from "react-router-dom";
+import ChatBox from "../../Chat/chatBox";
 
 function Skeleton(props) {
+  const [chats, setChats] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:3000/getChats", {
+      method: "GET",
+      credentials: "include",
+      withCredentials: true,
+
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data.user.chats);
+        setChats(data.user.chats);
+      });
+    // .then(() => console.log(chats));
+  }, []);
+
   const { userInfo, setUserInfo } = useContext(LoginContext);
-  console.log(userInfo);
+
   return [
     <div className="wrapper">
       <div className="section">
@@ -14,7 +32,11 @@ function Skeleton(props) {
           <h4>DashBoard</h4>
         </div>
         <div className="container">
-          <h1>Hello</h1>
+          {console.log(chats)}
+          {chats.map((item) => {
+            return <h1>From:{item.userid}</h1>;
+          })}
+          {/* <ChatBox /> */}
         </div>
       </div>
       <div className="sidebar">

@@ -26,6 +26,10 @@ const nodemailer = require("nodemailer");
 // main().catch(console.error);
 
 
+KILL IT __---------_____-----___---___--____
+kill -9 $(lsof -ti:3000,3001)
+
+
 
 
 

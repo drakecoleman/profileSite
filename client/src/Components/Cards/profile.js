@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -10,17 +10,14 @@ import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
-import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import { CardActionArea } from "@mui/material";
-import Box from "@mui/material/Box";
 import picture from "../../assets/yourimage.jpeg";
 import "./cardStyles.css";
 import MailIcon from "@material-ui/icons/Mail";
 import ChatBox from "./../Chat/chatBox";
 import CloseIcon from "@material-ui/icons/Close";
+import { ShowProfileContext } from "./../../Context/context";
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -33,6 +30,10 @@ const ExpandMore = styled((props) => {
 }));
 
 function Profile(props) {
+  const { show, setShow } = useContext(ShowProfileContext);
+  const close = () => {
+    setShow(false);
+  };
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -50,7 +51,7 @@ function Profile(props) {
         title={props.name}
         subheader={props.title}
         action={
-          <IconButton aria-label="close">
+          <IconButton onClick={close} aria-label="close">
             <CloseIcon />
           </IconButton>
         }

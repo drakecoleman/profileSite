@@ -22,13 +22,68 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-  // console.log(`Connected user: ${socket.id}`);
   socket.on("disconnect", () => {
     console.log(`Disconnected user: ${socket.id}`);
   });
   socket.on("send_message", (data) => {
-    console.log(data);
-    // socket.to(data.room).emit("receive_message", data);
+    // const mes = {
+    //   userid: data.sender,
+    //   messages: [{ user: data.sender, message: data.message }],
+    // };
+    const mes = {
+      user: data.sender,
+      message: data.message,
+    };
+
+    User.updateOne(
+      {
+        _id: data.receiver,
+        "chats.userid": data.sender,
+      },
+      { $push: { "chats.$.messages": mes } },
+      {
+        upsert: true,
+      },
+      (err, result) => {
+        if (!err) {
+          console.log(result);
+        } else {
+          console.log(err);
+        }
+      }
+    );
+    // User.findOne(
+    //   {
+    //     _id: data.receiver,
+    //     : data.sender,
+    //   },
+    //   (err, result) => {
+    //     if (!err) {
+    //       console.log(err);
+    //     } else {
+    //       console.log(result);
+    //     }
+    //   }
+    // );
+
+    // function (err, docs) {
+    //   if (!err) {
+    //     User.updateOne(
+    //       { _id: data.receiver },
+    //       { $push: { chats: mes } },
+
+    //       function (err, result) {
+    //         if (err) {
+    //           console.log(err);
+    //         } else {
+    //           console.log(result);
+    //         }
+    //       }
+    //     );
+    //   } else {
+    //     console.log(err);
+    //   }
+    // }
   });
 });
 

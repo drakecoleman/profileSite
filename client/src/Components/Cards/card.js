@@ -13,7 +13,6 @@ import { red } from "@mui/material/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { CardActionArea } from "@mui/material";
 import "./cardStyles.css";
 const ExpandMore = styled((props) => {

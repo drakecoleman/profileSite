@@ -49,6 +49,10 @@ function ChatBox() {
       await socket.emit("send_message", messageData);
       setMessageList((list) => [...list, messageData]);
       setCurrentMessage("");
+    } else {
+      alert(
+        "Message is Empty. Can not send a message that ISNT a message, dumbass"
+      );
     }
   };
 
