@@ -6,12 +6,13 @@ import {
 } from "./../../Context/context";
 import "./chatBoxStyles.css";
 import io from "socket.io-client";
-const socket = io.connect("http://localhost:3000");
 
-function ChatBox() {
+function ChatBox(props) {
+  const socket = io.connect("http://localhost:3000");
   const { id, setID } = useContext(ChatContext);
 
   const { userInfo, setUserInfo } = useContext(LoginContext);
+  const [show, setShow] = useState(props.connectSocket);
 
   useEffect(() => {
     socket.on("receive_message", (data) => {
@@ -51,7 +52,7 @@ function ChatBox() {
       setCurrentMessage("");
     } else {
       alert(
-        "Message is Empty. Can not send a message that ISNT a message, dumbass"
+        "Message is Empty. Can not send a message that ISNT a message, dummy"
       );
     }
   };

@@ -18,6 +18,8 @@ import MailIcon from "@material-ui/icons/Mail";
 import ChatBox from "./../Chat/chatBox";
 import CloseIcon from "@material-ui/icons/Close";
 import { ShowProfileContext } from "./../../Context/context";
+import io from "socket.io-client";
+
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -88,7 +90,7 @@ function Profile(props) {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>Method:</Typography>
-          <ChatBox />
+          <ChatBox socketConnect={show} />
         </CardContent>
       </Collapse>
     </Card>,

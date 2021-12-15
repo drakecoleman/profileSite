@@ -17,8 +17,7 @@ function Skeleton(props) {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data.user.chats);
-        setChats(data.user.chats);
+        setChats([...chats, data]);
       });
     // .then(() => console.log(chats));
   }, []);
@@ -34,7 +33,7 @@ function Skeleton(props) {
         <div className="container">
           {console.log(chats)}
           {chats.map((item) => {
-            return <h1>From:{item.userid}</h1>;
+            return <h1>From:{item[0].firstName}</h1>;
           })}
           {/* <ChatBox /> */}
         </div>

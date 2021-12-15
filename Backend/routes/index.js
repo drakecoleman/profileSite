@@ -84,17 +84,44 @@ router.post("/user", (req, res) => {
 });
 router.get("/getChats", (req, res) => {
   const theUser = req.user._id;
+  const theUsersChatIds = [];
+  const theUserChats = [];
 
-  const userChats = {};
+  // const userChats = {};
   User.findOne({ _id: theUser }, function (err, user) {
-    // console.log(user);
+    user.chats.forEach((item) => {
+      return theUsersChatIds.push(item.userid);
+    });
     // users.forEach(function (user) {
     //   userMap[user._id] = user;
     // });
-    // return userMap;
+    // console.log(userMap);
   })
     .then((response) => {
-      res.status(200).json({ user: req.user, auth: true, response });
+      console.log(theUsersChatIds);
+      User.find(
+        {
+          _id: {
+            $in: theUsersChatIds,
+          },
+        },
+        function (err, docs) {
+          if (!err) {
+            docs.forEach((item) => {
+              theUserChats.push({
+                _id: item._id,
+                firstName: item.fName,
+                lastName: item.lName,
+              });
+            });
+          } else {
+            console.log(err);
+          }
+        }
+      ).then(() => {
+        res.status(200).json(theUserChats);
+      });
+
       return;
     })
     .catch((err) => console.log(err));
