@@ -87,15 +87,14 @@ router.get("/getChats", (req, res) => {
   const theUsersChatIds = [];
   const theUserChats = [];
 
-  // const userChats = {};
   User.findOne({ _id: theUser }, function (err, user) {
-    user.chats.forEach((item) => {
-      return theUsersChatIds.push(item.userid);
-    });
-    // users.forEach(function (user) {
-    //   userMap[user._id] = user;
-    // });
-    // console.log(userMap);
+    if (!err) {
+      user.chats.forEach((item) => {
+        theUsersChatIds.push(item.userid);
+      });
+    } else {
+      console.log(err);
+    }
   })
     .then((response) => {
       console.log(theUsersChatIds);
@@ -114,15 +113,12 @@ router.get("/getChats", (req, res) => {
                 lastName: item.lName,
               });
             });
+            res.status(200).json(theUserChats);
           } else {
             console.log(err);
           }
         }
-      ).then(() => {
-        res.status(200).json(theUserChats);
-      });
-
-      return;
+      ).then(() => {});
     })
     .catch((err) => console.log(err));
 });

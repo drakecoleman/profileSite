@@ -2,9 +2,18 @@ import React, { useState, useContext, useEffect } from "react";
 import "./loggedStyles.css";
 import { LoginContext, DialogueContext } from "../../../Context/context";
 import ChatBox from "../../Chat/chatBox";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import Button from "@mui/material/Button";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogActions from "@mui/material/DialogActions";
+import SecondBoard from "../../QuestionBoard/secondBoard";
 
 function Skeleton(props) {
   const [chats, setChats] = useState([]);
+  const chatLength = chats.length;
+
   useEffect(() => {
     fetch("http://localhost:3000/getChats", {
       method: "GET",
@@ -17,25 +26,59 @@ function Skeleton(props) {
     })
       .then((res) => res.json())
       .then((data) => {
-        setChats([...chats, data]);
+        setChats(data);
       });
-    // .then(() => console.log(chats));
-  }, []);
+  }, [setChats]);
 
   const { userInfo, setUserInfo } = useContext(LoginContext);
+  const [openDialogue, setOpenDialogue] = useState(false);
+  const [fullWidth, setFullWidth] = React.useState(true);
+  const [maxWidth, setMaxWidth] = React.useState("sm");
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpenDialogue(true);
+  };
+
+  const handleClose = () => {
+    setOpenDialogue(false);
+  };
+
+  const handleMaxWidthChange = (event) => {
+    setMaxWidth(event.target.value);
+  };
+
+  const handleFullWidthChange = (event) => {
+    setFullWidth(event.target.checked);
+  };
 
   return [
     <div className="wrapper">
+      <Dialog
+        fullWidth={fullWidth}
+        maxWidth={maxWidth}
+        open={openDialogue}
+        sx={{ border: "solid black" }}
+        onClose={handleClose}
+      >
+        <DialogContent sx={{ p: 0, borderRadius: "2vw" }}>
+          <ChatBox />
+        </DialogContent>
+      </Dialog>
       <div className="section">
         <div className="top_navbar">
           <h4>DashBoard</h4>
         </div>
         <div className="container">
-          {console.log(chats)}
-          {chats.map((item) => {
-            return <h1>From:{item[0].firstName}</h1>;
-          })}
-          {/* <ChatBox /> */}
+          {chatLength >= 0 ? (
+            chats.map((item) => {
+              return (
+                <button onClick={handleClickOpen}>{item.firstName}</button>
+              );
+            })
+          ) : (
+            <h1>No Messages</h1>
+          )}
         </div>
       </div>
       <div className="sidebar">
