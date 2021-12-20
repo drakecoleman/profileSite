@@ -82,7 +82,7 @@ router.post("/user", (req, res) => {
     }
   );
 });
-router.get("/getChats", (req, res) => {
+router.get("/getChats", isAuth, (req, res) => {
   const theUser = req.user._id;
   const theUsersChatIds = [];
   const theUserChats = [];
@@ -122,7 +122,11 @@ router.get("/getChats", (req, res) => {
     })
     .catch((err) => console.log(err));
 });
+// router.get("/messages", isAuth, (req, res) => {
+//   res.status(200).json({ user: req.user, auth: true, response });
+// });
 router.get("/", isAuth, (req, res) => {
+  console.log("You are after isAuth and in the next middleware req,res");
   const userMap = {};
   User.find({}, function (err, users) {
     users.forEach(function (user) {

@@ -21,22 +21,23 @@ function Home() {
       },
     })
       .then(function (response) {
-        if (!response.ok) {
-          changeLogged(false);
-        } else {
-          changeLogged(true);
-          return response.json();
-        }
+        const data = response.json();
+        return data;
       })
       .then((data) => {
-        setUserInfo({
-          ...userInfo,
-          id: data.user._id,
-          fName: data.user.fName,
-          lName: data.user.lName,
-          title: data.user.title,
-        });
-        setUsersArray(data.response);
+        if (data.auth != false) {
+          setUserInfo({
+            ...userInfo,
+            id: data.user._id,
+            fName: data.user.fName,
+            lName: data.user.lName,
+            title: data.user.title,
+          });
+          changeLogged(true);
+          setUsersArray(data.response);
+        } else {
+          return changeLogged(false);
+        }
       })
 
       .catch((err) => console.log(err));

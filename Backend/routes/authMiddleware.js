@@ -1,8 +1,10 @@
 module.exports.isAuth = (req, res, next) => {
   if (req.isAuthenticated()) {
+    console.log("Authenticated");
     next();
     // res.status(200).json({ user: req.user, auth: true });
   } else {
+    console.log(" Not Authenticated");
     res.status(401).json({ auth: false });
   }
 };
